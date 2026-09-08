@@ -10,7 +10,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://melrusoftware.com">
   <meta name="theme-color" content="#0a0d12">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0d12'/%3E%3Cpath d='M8 23V9l8 9 8-9v14' fill='none' stroke='%2340e0a0' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0d12'/%3E%3Cpath d='M8 23V9l8 9 8-9v14' fill='none' stroke='%231f9e6a' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -24,10 +24,10 @@
       --text: #e8edf2;
       --text-2: #a7b1bd;
       --text-3: #6f7a86;
-      --accent: #40e0a0;
-      --accent-2: #1fbf86;
-      --accent-dim: rgba(64, 224, 160, 0.12);
-      --accent-glow: rgba(64, 224, 160, 0.35);
+      --accent: #1f9e6a;
+      --accent-2: #178a5b;
+      --accent-dim: rgba(31, 158, 106, 0.12);
+      --accent-glow: rgba(31, 158, 106, 0.35);
       --radius: 16px;
       --font-head: 'Space Grotesk', 'Inter', system-ui, sans-serif;
       --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -44,7 +44,7 @@
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--accent); color: #05261a; }
+    ::selection { background: var(--accent); color: #06281b; }
 
     .wrap { width: min(1120px, 100% - 3rem); margin: 0 auto; }
 
@@ -64,7 +64,7 @@
     }
     .bg .glow {
       position: absolute; width: 900px; height: 900px; border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(64,224,160,0.08) 35%, transparent 65%);
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(31,158,106,0.08) 35%, transparent 65%);
       top: -420px; left: 50%; transform: translateX(-50%);
       filter: blur(20px);
     }
@@ -101,10 +101,10 @@
       white-space: nowrap;
     }
     .btn-primary {
-      background: var(--accent); color: #05261a;
-      box-shadow: 0 0 0 1px rgba(64,224,160,0.4), 0 8px 24px -8px var(--accent-glow);
+      background: var(--accent); color: #06281b;
+      box-shadow: 0 0 0 1px rgba(31,158,106,0.4), 0 8px 24px -8px var(--accent-glow);
     }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(64,224,160,0.6), 0 14px 32px -8px var(--accent-glow); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(31,158,106,0.6), 0 14px 32px -8px var(--accent-glow); }
     .btn-ghost {
       background: transparent; color: var(--text);
       box-shadow: inset 0 0 0 1px var(--line-strong);
@@ -117,7 +117,7 @@
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px;
       font-size: 13px; font-weight: 500; color: var(--accent);
-      background: var(--accent-dim); border: 1px solid rgba(64,224,160,0.25);
+      background: var(--accent-dim); border: 1px solid rgba(31,158,106,0.25);
       padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
     }
     .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
@@ -128,7 +128,7 @@
       max-width: 26ch; margin: 0 auto 24px;
     }
     h1 .accent {
-      background: linear-gradient(120deg, #7df5c6 0%, var(--accent) 45%, #5ab8ff 100%);
+      background: linear-gradient(120deg, #4fd39a 0%, var(--accent) 45%, #0ea5a5 100%);
       -webkit-background-clip: text; background-clip: text; color: transparent;
     }
     .lede {
@@ -176,14 +176,14 @@
     }
     .card::before {
       content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(64,224,160,0.6), transparent);
+      background: linear-gradient(90deg, transparent, rgba(31,158,106,0.6), transparent);
       opacity: 0; transition: opacity .2s ease;
     }
     .card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
     .card:hover::before { opacity: 1; }
     .icon {
       width: 46px; height: 46px; border-radius: 12px;
-      background: var(--accent-dim); border: 1px solid rgba(64,224,160,0.25);
+      background: var(--accent-dim); border: 1px solid rgba(31,158,106,0.25);
       display: grid; place-items: center; margin-bottom: 22px;
     }
     .icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -220,7 +220,7 @@
     }
     .panel-bar { display: flex; gap: 6px; margin-bottom: 18px; }
     .panel-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
-    .panel-bar i:first-child { background: rgba(64,224,160,0.6); }
+    .panel-bar i:first-child { background: rgba(31,158,106,0.6); }
     .pl { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
     .pl:last-child { border-bottom: 0; }
     .pl .k { color: var(--text-3); }
@@ -237,7 +237,7 @@
     .person .avatar {
       width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
       font-family: var(--font-head); font-weight: 700; font-size: 15px;
-      background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(64,224,160,0.3);
+      background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(31,158,106,0.3);
     }
     .person .avatar.alt { background: rgba(90,184,255,0.12); color: #7cc4ff; border-color: rgba(90,184,255,0.3); }
     .person h4 { font-family: var(--font-head); font-size: 15px; font-weight: 600; margin-bottom: 2px; }
@@ -259,9 +259,9 @@
     .contact { padding: 120px 0 128px; }
     .contact-box {
       position: relative; overflow: hidden;
-      border: 1px solid rgba(64,224,160,0.28); border-radius: 24px;
+      border: 1px solid rgba(31,158,106,0.28); border-radius: 24px;
       background:
-        radial-gradient(ellipse 60% 80% at 50% -20%, rgba(64,224,160,0.22), transparent 60%),
+        radial-gradient(ellipse 60% 80% at 50% -20%, rgba(31,158,106,0.22), transparent 60%),
         linear-gradient(180deg, var(--bg-3), var(--bg-2));
       text-align: center; padding: 80px 32px;
     }
@@ -271,8 +271,8 @@
       display: inline-flex; align-items: center; gap: 12px;
       font-family: var(--font-head); font-size: clamp(18px, 3vw, 26px); font-weight: 600;
       padding: 18px 28px; border-radius: 14px;
-      background: var(--accent); color: #05261a;
-      box-shadow: 0 0 0 1px rgba(64,224,160,0.5), 0 20px 50px -14px var(--accent-glow);
+      background: var(--accent); color: #06281b;
+      box-shadow: 0 0 0 1px rgba(31,158,106,0.5), 0 20px 50px -14px var(--accent-glow);
       transition: transform .15s ease;
     }
     .email:hover { transform: translateY(-2px); }
@@ -331,7 +331,7 @@
   <header>
     <div class="wrap nav">
       <a class="logo" href="#top" aria-label="Melru Software home">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#141b24" stroke="rgba(255,255,255,0.1)"/><path d="M8 23V9l8 9 8-9v14" fill="none" stroke="#40e0a0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#141b24" stroke="rgba(255,255,255,0.1)"/><path d="M8 23V9l8 9 8-9v14" fill="none" stroke="#1f9e6a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
         Melru Software
       </a>
       <nav class="nav-links" aria-label="Primary">
