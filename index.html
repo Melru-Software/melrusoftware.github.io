@@ -311,6 +311,12 @@
       .ask-list { grid-template-columns: 1fr; }
       .hero-cta .btn { width: 100%; justify-content: center; }
       .email { max-width: 100%; font-size: 16px; padding: 16px 18px; }
+      .strip-inner {
+        display: grid; grid-template-columns: max-content 1fr; justify-items: start;
+        gap: 12px 12px; padding: 18px 0; font-size: 11px; letter-spacing: 0.02em;
+      }
+      .strip-inner span { align-items: flex-start; line-height: 1.35; }
+      .strip-inner span::before { flex: 0 0 4px; margin-top: 6px; }
     }
   </style>
 </head>
