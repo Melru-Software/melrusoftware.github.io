@@ -3,226 +3,561 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Melru Software</title>
+  <title>Melru Software · Custom software for real problems</title>
+  <meta name="description" content="Melru Software builds custom web apps, websites, internal tools, and AI-powered products for businesses and founders. Custom software without the big-agency overhead.">
+  <meta property="og:title" content="Melru Software">
+  <meta property="og:description" content="Custom web apps, internal tools, and AI-powered products. Custom software without the big-agency overhead.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://melrusoftware.com">
+  <meta name="theme-color" content="#0a0d12">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0d12'/%3E%3Cpath d='M8 23V9l8 9 8-9v14' fill='none' stroke='%2340e0a0' stroke-width='3' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg: #0a0d12;
+      --bg-2: #0f141b;
+      --bg-3: #141b24;
+      --line: rgba(255, 255, 255, 0.08);
+      --line-strong: rgba(255, 255, 255, 0.14);
+      --text: #e8edf2;
+      --text-2: #a7b1bd;
+      --text-3: #6f7a86;
+      --accent: #40e0a0;
+      --accent-2: #1fbf86;
+      --accent-dim: rgba(64, 224, 160, 0.12);
+      --accent-glow: rgba(64, 224, 160, 0.35);
+      --radius: 16px;
+      --font-head: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
     }
-    
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: #ffffff;
-      color: #1a1a1a;
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
-    
-    .container {
-      background: #ffffff;
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
+    a { color: inherit; text-decoration: none; }
+    ::selection { background: var(--accent); color: #05261a; }
+
+    .wrap { width: min(1120px, 100% - 3rem); margin: 0 auto; }
+
+    /* ---------- Background ---------- */
+    .bg {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
     }
-    
-    /* Art Deco Background Pattern */
-    svg.background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.06;
-      pointer-events: none;
+    .bg .grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 20%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 20%, transparent 70%);
+      opacity: 0.7;
     }
-    
-    /* Content wrapper */
-    .content {
-      position: relative;
-      z-index: 1;
-      padding: 4rem 2rem;
-      text-align: center;
-      max-width: 1000px;
-      margin: 0 auto;
+    .bg .glow {
+      position: absolute; width: 900px; height: 900px; border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(64,224,160,0.08) 35%, transparent 65%);
+      top: -420px; left: 50%; transform: translateX(-50%);
+      filter: blur(20px);
     }
-    
-    /* Header */
-    .header {
-      margin-bottom: 4rem;
+    .bg .glow-2 {
+      position: absolute; width: 600px; height: 600px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(64,140,224,0.18) 0%, transparent 65%);
+      right: -200px; top: 40%; filter: blur(30px);
     }
-    
+    main, header, footer { position: relative; z-index: 1; }
+
+    /* ---------- Nav ---------- */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: rgba(10, 13, 18, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-head); font-weight: 700; font-size: 17px; letter-spacing: 0.2px;
+    }
+    .logo svg { width: 28px; height: 28px; }
+    .nav-links { display: flex; gap: 32px; font-size: 14px; color: var(--text-2); }
+    .nav-links a:hover { color: var(--text); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 18px; border-radius: 10px;
+      font-weight: 600; font-size: 14px; line-height: 1;
+      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--accent); color: #05261a;
+      box-shadow: 0 0 0 1px rgba(64,224,160,0.4), 0 8px 24px -8px var(--accent-glow);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(64,224,160,0.6), 0 14px 32px -8px var(--accent-glow); }
+    .btn-ghost {
+      background: transparent; color: var(--text);
+      box-shadow: inset 0 0 0 1px var(--line-strong);
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.04); }
+    .btn svg { width: 16px; height: 16px; }
+
+    /* ---------- Hero ---------- */
+    .hero { padding: 120px 0 96px; text-align: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 500; color: var(--accent);
+      background: var(--accent-dim); border: 1px solid rgba(64,224,160,0.25);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
+    }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
     h1 {
-      font-size: 52px;
-      font-weight: 700;
-      margin: 0 0 1rem 0;
-      color: #1a1a1a;
-      letter-spacing: 2px;
-      text-transform: uppercase;
+      font-family: var(--font-head);
+      font-size: clamp(40px, 6.4vw, 76px);
+      font-weight: 700; line-height: 1.04; letter-spacing: -0.025em;
+      max-width: 26ch; margin: 0 auto 24px;
     }
-    
-    .tagline {
-      font-size: 20px;
-      color: #1B4D2E;
-      margin: 0 0 2rem 0;
-      font-weight: 500;
+    h1 .accent {
+      background: linear-gradient(120deg, #7df5c6 0%, var(--accent) 45%, #5ab8ff 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
     }
-    
-    .description {
-      font-size: 16px;
-      color: #666;
-      margin: 0;
-      line-height: 1.6;
+    .lede {
+      font-size: clamp(17px, 2vw, 20px); color: var(--text-2);
+      max-width: 56ch; margin: 0 auto 40px;
     }
-    
-    /* CTA Section */
-    .cta-section {
-      margin-bottom: 5rem;
+    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .hero-cta .btn { padding: 15px 24px; font-size: 15px; border-radius: 12px; }
+    .hero-note { margin-top: 20px; font-size: 13px; color: var(--text-3); }
+
+    /* ---------- Marquee strip ---------- */
+    .strip {
+      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.015);
     }
-    
-    .cta-section p {
-      font-size: 16px;
-      color: #666;
-      margin: 0;
+    .strip-inner {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px;
+      padding: 20px 0; font-size: 13px; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase;
     }
-    
-    .cta-section strong {
-      color: #1B4D2E;
+    .strip-inner span { display: inline-flex; align-items: center; gap: 8px; }
+    .strip-inner span::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+
+    /* ---------- Sections ---------- */
+    section { padding: 104px 0; }
+    .section-head { max-width: 640px; margin-bottom: 56px; }
+    .label {
+      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
     }
-    
-    /* What We Do Section */
-    .what-we-do {
-      border-top: 0.5px solid #e0e0e0;
-      border-bottom: 0.5px solid #e0e0e0;
-      padding: 3rem 0;
+    h2 {
+      font-family: var(--font-head);
+      font-size: clamp(30px, 4vw, 44px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
+      margin-bottom: 16px;
     }
-    
-    .what-we-do h2 {
-      font-size: 18px;
-      font-weight: 500;
-      margin: 0 0 2rem 0;
-      color: #1a1a1a;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .section-head p { color: var(--text-2); font-size: 17px; }
+
+    /* ---------- Services ---------- */
+    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .card {
+      position: relative;
+      background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
+      border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 30px 28px 32px; overflow: hidden;
+      transition: border-color .2s ease, transform .2s ease;
     }
-    
-    .features {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      text-align: left;
+    .card::before {
+      content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(64,224,160,0.6), transparent);
+      opacity: 0; transition: opacity .2s ease;
     }
-    
-    .feature h3 {
-      font-size: 14px;
-      font-weight: 500;
-      color: #1B4D2E;
-      margin: 0 0 0.5rem 0;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
+    .card:hover::before { opacity: 1; }
+    .icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      background: var(--accent-dim); border: 1px solid rgba(64,224,160,0.25);
+      display: grid; place-items: center; margin-bottom: 22px;
     }
-    
-    .feature p {
-      font-size: 14px;
-      color: #666;
-      margin: 0;
-      line-height: 1.6;
+    .icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .card h3 { font-family: var(--font-head); font-size: 21px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
+    .card p { color: var(--text-2); font-size: 15px; margin-bottom: 18px; }
+    .card ul { list-style: none; display: grid; gap: 8px; }
+    .card li { font-size: 14px; color: var(--text-3); display: flex; gap: 10px; align-items: flex-start; }
+    .card li::before { content: "→"; color: var(--accent); flex-shrink: 0; }
+
+    /* ---------- Process ---------- */
+    .process { background: rgba(255,255,255,0.015); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .step { padding: 8px 28px 8px 0; position: relative; }
+    .step + .step { padding-left: 28px; border-left: 1px solid var(--line); }
+    .num {
+      font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--accent);
+      letter-spacing: 0.1em; margin-bottom: 18px;
     }
-    
-    /* Footer */
-    .footer {
-      margin-top: 3rem;
-      padding-top: 2rem;
+    .step h3 { font-family: var(--font-head); font-size: 19px; font-weight: 600; margin-bottom: 10px; }
+    .step p { font-size: 14.5px; color: var(--text-2); }
+
+    /* ---------- Why / Story ---------- */
+    .story-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+    .story p { color: var(--text-2); font-size: 17px; margin-bottom: 18px; }
+    .story p:last-child { margin-bottom: 0; }
+    .panel {
+      background: linear-gradient(160deg, var(--bg-3), var(--bg-2));
+      border: 1px solid var(--line); border-radius: 20px; padding: 8px;
+      box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
     }
-    
-    .footer p {
-      font-size: 12px;
-      color: #999;
-      margin: 0;
+    .panel-inner {
+      border-radius: 14px; background: var(--bg); border: 1px solid var(--line);
+      padding: 26px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.75;
     }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 36px;
-      }
-      
-      .tagline {
-        font-size: 18px;
-      }
-      
-      .features {
-        grid-template-columns: 1fr;
-      }
-      
-      .content {
-        padding: 2rem 1rem;
-      }
+    .panel-bar { display: flex; gap: 6px; margin-bottom: 18px; }
+    .panel-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
+    .panel-bar i:first-child { background: rgba(64,224,160,0.6); }
+    .pl { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+    .pl:last-child { border-bottom: 0; }
+    .pl .k { color: var(--text-3); }
+    .pl .v { color: var(--text); }
+    .pl .v.ok { color: var(--accent); }
+    .pl .v.bad { color: #ff7d7d; text-decoration: line-through; opacity: .8; }
+
+    /* Team panel */
+    .team { display: grid; gap: 10px; }
+    .person {
+      display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;
+      padding: 18px; border-radius: 12px; background: var(--bg-3); border: 1px solid var(--line);
+    }
+    .person .avatar {
+      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+      font-family: var(--font-head); font-weight: 700; font-size: 15px;
+      background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(64,224,160,0.3);
+    }
+    .person .avatar.alt { background: rgba(90,184,255,0.12); color: #7cc4ff; border-color: rgba(90,184,255,0.3); }
+    .person h4 { font-family: var(--font-head); font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+    .person .role { font-size: 12px; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .person p { font-size: 14px; color: var(--text-2); font-family: var(--font-body); line-height: 1.55; }
+    .team-foot { padding: 14px 6px 4px; font-size: 13px; color: var(--text-3); text-align: center; }
+
+    /* Brought-to-us list */
+    .asks { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--line); }
+    .asks-head { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 20px; }
+    .ask-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; list-style: none; }
+    .ask-list li {
+      padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.02);
+      font-size: 15px; color: var(--text); font-style: italic;
+    }
+    .ask-list li::before { content: "“"; color: var(--accent); font-style: normal; font-family: var(--font-head); font-size: 22px; line-height: 0; margin-right: 6px; vertical-align: -6px; }
+
+    /* ---------- Contact ---------- */
+    .contact { padding: 120px 0 128px; }
+    .contact-box {
+      position: relative; overflow: hidden;
+      border: 1px solid rgba(64,224,160,0.28); border-radius: 24px;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% -20%, rgba(64,224,160,0.22), transparent 60%),
+        linear-gradient(180deg, var(--bg-3), var(--bg-2));
+      text-align: center; padding: 80px 32px;
+    }
+    .contact-box h2 { max-width: 20ch; margin: 0 auto 16px; }
+    .contact-box > p { color: var(--text-2); font-size: 17px; max-width: 52ch; margin: 0 auto 36px; }
+    .email {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--font-head); font-size: clamp(18px, 3vw, 26px); font-weight: 600;
+      padding: 18px 28px; border-radius: 14px;
+      background: var(--accent); color: #05261a;
+      box-shadow: 0 0 0 1px rgba(64,224,160,0.5), 0 20px 50px -14px var(--accent-glow);
+      transition: transform .15s ease;
+    }
+    .email:hover { transform: translateY(-2px); }
+    .email svg { width: 22px; height: 22px; }
+    .contact-sub { margin-top: 22px; font-size: 14px; color: var(--text-3); }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--line); padding: 32px 0; }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--text-3); }
+    .foot a:hover { color: var(--text); }
+
+    /* ---------- Reveal ---------- */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 960px) {
+      .cards { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 32px 0; }
+      .step { padding: 8px 24px 8px 0; }
+      .step + .step { padding-left: 24px; }
+      .step:nth-child(3) { padding-left: 0; border-left: 0; }
+      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .ask-list { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .h1-br { display: none; }
+      .hero { padding: 84px 0 72px; }
+      section { padding: 76px 0; }
+      .steps { grid-template-columns: 1fr; gap: 28px; }
+      .step, .step + .step { padding: 0; border-left: 0; }
+      .step { padding-left: 0; }
+      .contact-box { padding: 56px 22px; }
+      .ask-list { grid-template-columns: 1fr; }
+      .hero-cta .btn { width: 100%; justify-content: center; }
+      .email { max-width: 100%; font-size: 16px; padding: 16px 18px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Art Deco Background Pattern -->
-    <svg class="background" viewBox="0 0 400 400">
-      <defs>
-        <pattern id="artdeco" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
-          <!-- Diagonal lines -->
-          <line x1="0" y1="0" x2="200" y2="200" stroke="#1B4D2E" stroke-width="1"/>
-          <line x1="200" y1="0" x2="0" y2="200" stroke="#1B4D2E" stroke-width="1"/>
-          <!-- Geometric triangles -->
-          <polygon points="100,50 150,100 50,100" fill="none" stroke="#1B4D2E" stroke-width="0.5"/>
-          <polygon points="100,150 150,100 50,100" fill="none" stroke="#1B4D2E" stroke-width="0.5"/>
-          <!-- Corner accents -->
-          <circle cx="10" cy="10" r="2" fill="#1B4D2E"/>
-          <circle cx="190" cy="10" r="2" fill="#1B4D2E"/>
-          <circle cx="10" cy="190" r="2" fill="#1B4D2E"/>
-          <circle cx="190" cy="190" r="2" fill="#1B4D2E"/>
-        </pattern>
-      </defs>
-      <rect width="400" height="400" fill="url(#artdeco)"/>
-    </svg>
 
-    <!-- Content -->
-    <div class="content">
-      <!-- Header -->
-      <div class="header">
-        <h1>Melru Software</h1>
-        <p class="tagline">Building AI-powered software tools</p>
-        <p class="description">Have a business problem that could be solved with custom software? Let's talk.</p>
+  <div class="bg" aria-hidden="true">
+    <div class="grid"></div>
+    <div class="glow"></div>
+    <div class="glow-2"></div>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="#top" aria-label="Melru Software home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#141b24" stroke="rgba(255,255,255,0.1)"/><path d="M8 23V9l8 9 8-9v14" fill="none" stroke="#40e0a0" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        Melru Software
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#process">How we work</a>
+        <a href="#why">Why Melru</a>
+      </nav>
+      <a class="btn btn-primary" href="mailto:info@melrusoftware.com">
+        Email us
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow"><span class="dot"></span> Taking new projects</div>
+        <h1>Software for the thing that<br class="h1-br"> <span class="accent">shouldn't be this hard.</span></h1>
+        <p class="lede">
+          Melru is a two-person studio of senior engineers. We build web apps, websites, internal tools, and AI-powered products,
+          and you get custom software without the big-agency overhead, from the people who will actually build it.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
+            Tell us about your project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#services">See what we build</a>
+        </div>
+        <p class="hero-note">Reply within one business day. No forms, no sales call required.</p>
       </div>
+    </section>
 
-      <!-- CTA -->
-      <div class="cta-section">
-        <p>Email us at <strong>info@melrusoftware.com</strong></p>
+    <div class="strip">
+      <div class="wrap strip-inner">
+        <span>Web apps</span>
+        <span>Internal tools</span>
+        <span>AI &amp; automation</span>
+        <span>MVPs for founders</span>
+        <span>Websites</span>
+        <span>Fixed scope, clear pricing</span>
       </div>
+    </div>
 
-      <!-- What We Do Section -->
-      <div class="what-we-do">
-        <h2>What we do</h2>
-        
-        <div class="features">
-          <div class="feature">
-            <h3>Rapid development</h3>
-            <p>We use AI to build software in days or weeks, not months.</p>
+    <!-- Services -->
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="label">What we build</div>
+          <h2>Software that solves a real problem in your business.</h2>
+          <p>We start with the problem, not the tech stack. Then we build the smallest thing that fixes it and grow from there.</p>
+        </div>
+        <div class="cards">
+          <article class="card reveal">
+            <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3"/></svg></div>
+            <h3>Custom web apps &amp; internal tools</h3>
+            <p>The dashboard, portal, or back-office tool your team keeps wishing existed. Built to fit how you already work.</p>
+            <ul>
+              <li>Replace spreadsheets and manual processes</li>
+              <li>Customer and staff portals</li>
+              <li>Reporting and admin dashboards</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
+            <h3>AI integration &amp; automation</h3>
+            <p>Add AI features to the software you already have, or automate the work that eats your week.</p>
+            <ul>
+              <li>Document and email processing</li>
+              <li>Chat and search over your own data</li>
+              <li>Workflow automation between your tools</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <div class="icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.1 2.1 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.9 12.9 0 0 1 22 2c0 2.7-.9 7.3-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.5-3 2-4 4-1 4-1M15 12v5s3-.5 4-2 1-4 1-4"/></svg></div>
+            <h3>MVPs for founders</h3>
+            <p>Have an idea and need it in front of real users? We take it from a description to a launched product you can charge for.</p>
+              <ul>
+              <li>Scope to a version 1 that ships</li>
+              <li>Landing page, app, and payments</li>
+              <li>Built so you can keep iterating</li>
+            </ul>
+          </article>
+          <article class="card reveal">
+            <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+            <h3>Websites for small businesses</h3>
+            <p>A site that looks like your business, loads fast, and is easy for you to update. Recent work includes a site for a slime shop.</p>
+            <ul>
+              <li>Design and build, start to finish</li>
+              <li>Shops, bookings, and contact forms</li>
+              <li>Hosting and domain set up for you</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Process -->
+    <section id="process" class="process">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div class="label">How we work</div>
+          <h2>From first email to working software.</h2>
+          <p>Short cycles, plain language, and something you can click on early.</p>
+        </div>
+        <div class="steps">
+          <div class="step reveal">
+            <div class="num">01</div>
+            <h3>Tell us the problem</h3>
+            <p>Email us what's slow, manual, or missing. We'll ask a few questions and tell you whether software is the right fix.</p>
           </div>
-
-          <div class="feature">
-            <h3>Real solutions</h3>
-            <p>We start by understanding your problem, then build something that actually works for you.</p>
+          <div class="step reveal">
+            <div class="num">02</div>
+            <h3>Agree on a scope</h3>
+            <p>You get a written scope, a timeline, and a price before anything is built. No surprises later.</p>
           </div>
-
-          <div class="feature">
-            <h3>Products first</h3>
-            <p>We build tools designed to be used and loved, not over-engineered vanity projects.</p>
+          <div class="step reveal">
+            <div class="num">03</div>
+            <h3>See it early, often</h3>
+            <p>You see a working version early, not at the end. You react, we adjust.</p>
+          </div>
+          <div class="step reveal">
+            <div class="num">04</div>
+            <h3>Launch and keep going</h3>
+            <p>We deploy it, hand over everything, and stay available for the next round of improvements.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Footer -->
-      <div class="footer">
-        <p>melrusoftware.com</p>
+    <!-- Why -->
+    <section id="why">
+      <div class="wrap">
+        <div class="story-grid">
+          <div class="story reveal">
+            <div class="label">Why Melru</div>
+            <h2>Two people who can't leave an inefficiency alone.</h2>
+            <p>
+              Melru is a husband and wife team. We're both senior software engineers who spent years at a large software company,
+              one of us on the backend and one on the frontend, and we came away with a lot of experience in how big companies
+              build software. We also came away convinced that a small, well-scoped team using AI could build good solutions
+              faster than a huge one.
+            </p>
+            <p>
+              We're problem solvers by habit. When something at work or at home isn't as easy as it should be, one of us
+              ends up building the fix. That habit is how Melru started, and it's the same thing we bring to your project.
+            </p>
+            <p>
+              The name is our street. It's short, easy to say, and it's where we work.
+            </p>
+          </div>
+          <div class="reveal">
+            <div class="panel">
+              <div class="panel-inner" style="font-family: var(--font-body);">
+                <div class="panel-bar"><i></i><i></i><i></i></div>
+                <div class="team">
+                  <div class="person">
+                    <div class="avatar">BE</div>
+                    <div>
+                      <h4>The systems thinker</h4>
+                      <div class="role">Backend · Architecture · Data</div>
+                      <p>Thinks in systems and wants to understand exactly how things work, all the way down. Holds every detail in his head. Loves a spreadsheet.</p>
+                    </div>
+                  </div>
+                  <div class="person">
+                    <div class="avatar alt">FE</div>
+                    <div>
+                      <h4>The one who ships it</h4>
+                      <div class="role">Frontend · Product · Delivery</div>
+                      <p>Sets the vision and pushes it through to done. Gets annoyed when software is harder to use than it needs to be, then fixes it.</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="team-foot">You'll talk to the people building it. There's no one else.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="asks reveal">
+          <div class="asks-head">Things people have brought us</div>
+          <ul class="ask-list">
+            <li>This website we depend on is hard to use. Can you make a tool that makes it easier?</li>
+            <li>We need a system to organize and visualize the data for a huge project with a lot of moving parts.</li>
+            <li>Reserving test environments is a Slack back-and-forth and we keep stepping on each other. Can a bot handle it?</li>
+            <li>I want to know where I actually stand financially, in a way I can understand.</li>
+            <li>I've had an idea for a game for years. Could we build it?</li>
+            <li>Our small business needs a website that actually looks like us.</li>
+          </ul>
+        </div>
       </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+      <div class="wrap">
+        <div class="contact-box reveal">
+          <div class="label">Get in touch</div>
+          <h2>Have a problem software could fix?</h2>
+          <p>Send a few sentences about what you're dealing with. You'll hear back from a person who can actually build it.</p>
+          <a class="email" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            info@melrusoftware.com
+          </a>
+          <p class="contact-sub">We reply within one business day.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span>© <span id="year">2026</span> Melru Software</span>
+      <span><a href="mailto:info@melrusoftware.com">info@melrusoftware.com</a></span>
     </div>
-  </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    var els = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      els.forEach(function (el) { io.observe(el); });
+    } else {
+      els.forEach(function (el) { el.classList.add('in'); });
+    }
+  </script>
 </body>
 </html>
