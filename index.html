@@ -94,10 +94,11 @@
     .hero-note b { font-weight: 500; color: var(--text-2); }
     .hero-shot { display: block; }
     .hero-shot .frame {
-      display: block; aspect-ratio: 760 / 620; overflow: hidden; border-radius: 8px;
+      display: block; transition: border-color .15s ease; aspect-ratio: 760 / 620; overflow: hidden; border-radius: 8px;
       border: 1px solid var(--line-strong); background: var(--bg-3);
     }
     .hero-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-shot .frame:hover { border-color: var(--text-3); }
     .hero-shot figcaption { margin-top: 10px; font-size: 14px; color: var(--text-3); }
     .hero-shot figcaption a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
     .hero-shot figcaption a:hover { text-decoration-color: var(--accent-ink); }
@@ -290,8 +291,8 @@
           <p class="hero-note"><b>Taking new projects.</b> You'll hear back from one of us, usually the same day. No forms, no sales call required.</p>
         </div>
         <figure class="hero-shot">
-          <div class="frame"><img src="assets/work/spend-enough-chart.jpg" alt="From Spend Enough: $86,000 a year, and a chart of the plan’s range of outcomes from age 45 to 100 with the middle outcome drawn as a line" width="760" height="620"></div>
-          <figcaption>From <a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough</a>, a tool we built and run.</figcaption>
+          <a class="frame" href="https://spendenough.com" target="_blank" rel="noopener" aria-label="Open Spend Enough in a new tab"><img src="assets/work/spend-enough-chart.jpg" alt="From Spend Enough: $86,000 a year, and a chart of the plan’s range of outcomes from age 45 to 100 with the middle outcome drawn as a line" width="760" height="620"></a>
+          <figcaption><a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough</a>, one of the things we've built. <a href="#work">See the rest.</a></figcaption>
         </figure>
       </div>
     </section>
