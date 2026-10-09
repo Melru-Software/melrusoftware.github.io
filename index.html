@@ -8,12 +8,13 @@
   <meta property="og:title" content="Melru Software">
   <meta property="og:description" content="Custom web apps, internal tools, and AI products. Custom software without the overhead of a big agency.">
   <meta property="og:type" content="website">
+  <meta property="og:image" content="https://melrusoftware.com/assets/work/spend-enough.jpg">
   <meta property="og:url" content="https://melrusoftware.com">
   <meta name="theme-color" content="#0a0d12">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230a0d12%22/%3E%3Cpath d=%22M5 8H14V12L19 10V22L14 20V24H5Z%22 fill=%22%233a4655%22 stroke=%22%230a0d12%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M27 8H14V12L19 10V22L14 20V24H27Z%22 fill=%22%231f9e6a%22 stroke=%22%230a0d12%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0d12;
@@ -22,68 +23,56 @@
       --line: rgba(232, 237, 242, 0.09);
       --line-strong: rgba(232, 237, 242, 0.18);
       --text: #e8edf2;
-      --text-2: #aab4c0;
-      --text-3: #8a95a3;
+      --text-2: #b8c2cd;      /* running text */
+      --text-3: #8a95a3;      /* notes, labels */
       --accent: #1f9e6a;
-      --accent-ink: #2db77c;      /* accent used as text on dark surfaces */
+      --accent-ink: #2db77c;  /* accent as text or hover */
       --accent-deep: #178a5b;
       --on-accent: #06281b;
-      --font-head: 'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif;
-      --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --font-head: 'Geologica', system-ui, sans-serif;
+      --font-body: 'Geologica', system-ui, -apple-system, 'Segoe UI', sans-serif;
       --wrap: 1120px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
     body {
       font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
-      font-size: 17px; line-height: 1.6;
+      font-size: 16.5px; line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    p a, li a, .foot a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
-    p a:hover, li a:hover, .foot a:hover { text-decoration-color: var(--accent-ink); }
+    p a, li a, .foot a, .credit a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+    p a:hover, li a:hover, .foot a:hover, .credit a:hover { text-decoration-color: var(--accent-ink); }
     ::selection { background: var(--accent); color: var(--on-accent); }
     :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; border-radius: 2px; }
     strong { font-weight: 600; }
+    svg { flex-shrink: 0; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
     .wrap { width: min(var(--wrap), 100% - 3rem); margin: 0 auto; }
 
-    h1, h2, h3 {
-      font-family: var(--font-head);
-      font-variation-settings: 'opsz' 96;
-      text-wrap: balance;
-    }
-    h2 {
-      font-size: clamp(30px, 3.6vw, 42px); font-weight: 600; line-height: 1.08; letter-spacing: -0.02em;
-      max-width: 22ch;
-    }
-    h3 { font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; font-variation-settings: 'opsz' 24; }
+    h1, h2, h3 { font-family: var(--font-head); text-wrap: balance; }
+    h2 { font-size: clamp(28px, 3.3vw, 40px); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; max-width: 22ch; }
+    h3 { font-size: 21px; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; }
 
     /* ---------- Header ---------- */
-    header {
-      position: sticky; top: 0; z-index: 50;
-      background: var(--bg);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .logo {
-      display: flex; align-items: center; gap: 10px;
-      font-family: var(--font-head); font-weight: 600; font-size: 17px; letter-spacing: -0.01em;
-    }
+    header { position: sticky; top: 0; z-index: 50; background: var(--bg); border-bottom: 1px solid var(--line); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 600; font-size: 17px; letter-spacing: -0.01em; }
     .logo svg { width: 26px; height: 26px; }
     .nav-links { display: flex; gap: 28px; font-size: 15px; color: var(--text-2); }
     .nav-links a { padding: 6px 0; border-bottom: 1px solid transparent; }
     .nav-links a:hover { color: var(--text); border-bottom-color: var(--line-strong); }
+    .menu { display: none; }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 16px; border-radius: 8px;
-      font-weight: 600; font-size: 15px; line-height: 1;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      min-height: 44px; padding: 10px 16px; border-radius: 8px;
+      font-weight: 600; font-size: 15px; line-height: 1; white-space: nowrap;
       transition: background .15s ease, border-color .15s ease, color .15s ease;
     }
     .btn-primary { background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent-deep); }
@@ -93,149 +82,160 @@
     .btn svg { width: 16px; height: 16px; }
 
     /* ---------- Hero ---------- */
-    .hero { padding: 96px 0 72px; }
-    .hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 48px 64px; align-items: end; }
-    h1 {
-      font-size: clamp(42px, 6vw, 78px); font-weight: 700; line-height: 1; letter-spacing: -0.03em;
-      max-width: 14ch;
-    }
-    h1 .accent { color: var(--accent-ink); }
-    .hero-side { display: flex; flex-direction: column; gap: 24px; padding-bottom: 6px; }
-    .lede { font-size: clamp(17px, 1.6vw, 19px); color: var(--text-2); max-width: 46ch; }
+    .hero { padding: 80px 0 64px; }
+    .hero-grid { display: grid; grid-template-columns: 6fr 6fr; gap: 40px 64px; align-items: center; }
+    h1 { font-size: clamp(40px, 5.4vw, 68px); font-weight: 700; line-height: 1.02; letter-spacing: -0.035em; max-width: 13ch; }
+    h1 .accent { display: block; color: var(--accent-ink); }
+    .hero-copy { display: flex; flex-direction: column; gap: 28px; }
+    .lede { font-size: clamp(17px, 1.5vw, 19px); color: var(--text-2); max-width: 44ch; }
     .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-cta .btn { padding: 13px 18px; }
-    .hero-note { font-size: 14px; color: var(--text-3); max-width: 44ch; }
+    .hero-cta .btn { padding: 12px 18px; }
+    .hero-note { font-size: 14.5px; color: var(--text-3); max-width: 44ch; }
     .hero-note b { font-weight: 500; color: var(--text-2); }
+    .hero-shot { display: block; }
+    .hero-shot .frame {
+      display: block; aspect-ratio: 880 / 580; overflow: hidden; border-radius: 8px;
+      border: 1px solid var(--line-strong); background: var(--bg-3);
+    }
+    .hero-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .hero-shot figcaption { margin-top: 10px; font-size: 14px; color: var(--text-3); }
+    .hero-shot figcaption a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+    .hero-shot figcaption a:hover { text-decoration-color: var(--accent-ink); }
 
-    /* one authored entrance, on load only */
     @media (prefers-reduced-motion: no-preference) {
-      .hero h1, .hero-side { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
-      .hero-side { animation-delay: .12s; }
+      .hero-copy, .hero-shot { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+      .hero-shot { animation-delay: .12s; }
       @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     }
 
-    /* ---------- Strip ---------- */
+    /* ---------- Facts strip ---------- */
     .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .strip-inner {
-      display: flex; flex-wrap: wrap; gap: 8px 0;
-      padding: 16px 0; font-size: 14px; color: var(--text-3);
-    }
+    .strip-inner { display: flex; flex-wrap: wrap; gap: 6px 0; padding: 14px 0; font-size: 14.5px; color: var(--text-3); }
     .strip-inner span { display: inline-flex; align-items: center; }
     .strip-inner span + span::before { content: "·"; margin: 0 14px; color: var(--line-strong); }
 
-    /* ---------- Sections ---------- */
-    section { padding: 96px 0; }
-    .section-head { display: grid; grid-template-columns: 7fr 5fr; gap: 24px 64px; align-items: end; margin-bottom: 48px; }
-    .section-head p { color: var(--text-2); font-size: 17px; max-width: 42ch; }
+    /* ---------- Thesis ---------- */
+    .thesis { padding: 80px 0 72px; }
+    .thesis p { font-family: var(--font-head); font-size: clamp(23px, 2.6vw, 32px); font-weight: 500; line-height: 1.32; letter-spacing: -0.02em; max-width: 30ch; text-wrap: balance; }
 
-    /* ---------- Services: a list, not cards ---------- */
+    /* ---------- Sections ---------- */
+    section { padding: 88px 0; }
+    .section-head { margin-bottom: 40px; }
+    .section-head p { color: var(--text-2); max-width: 46ch; margin-top: 12px; }
+
+    /* ---------- Work ---------- */
+    .work { padding-top: 0; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
+    .work-card { display: flex; flex-direction: column; }
+    .work-shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px; border: 1px solid var(--line-strong); background: var(--bg-3); transition: border-color .15s ease; }
+    .work-card:has(a:hover) .work-shot { border-color: var(--text-3); }
+    .work-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .work-body { padding: 18px 2px 0; display: flex; flex-direction: column; gap: 8px; }
+    .work-body h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .work-body h3 a { text-decoration: none; }
+    .work-body h3 a:hover { text-decoration: underline; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+    .work-body h3 small { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text-3); white-space: nowrap; }
+    .work-body p { color: var(--text-2); font-size: 16px; }
+    .work-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 15px; font-weight: 500; color: var(--accent-ink); }
+    .work-link svg { width: 14px; height: 14px; }
+
+    /* ---------- Services ---------- */
     .services { list-style: none; border-top: 1px solid var(--line); }
-    .service {
-      display: grid; grid-template-columns: 5fr 7fr; gap: 16px 64px;
-      padding: 32px 0; border-bottom: 1px solid var(--line);
-    }
-    .service p { color: var(--text-2); font-size: 17px; max-width: 58ch; }
-    .service .eg { margin-top: 10px; font-size: 15px; color: var(--text-3); max-width: 58ch; }
-    .service .eg b { font-weight: 500; color: var(--text-2); }
+    .service { display: grid; grid-template-columns: 5fr 7fr; gap: 12px 64px; padding: 30px 0; border-bottom: 1px solid var(--line); }
+    .service p { color: var(--text-2); max-width: 52ch; }
+    .service .eg { margin-top: 8px; font-size: 15.5px; color: var(--text-3); max-width: 52ch; }
 
     /* ---------- Process ---------- */
-    .process { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; list-style: none; counter-reset: step; }
-    .step { border-top: 1px solid var(--line-strong); padding-top: 20px; }
-    .step h3 { font-size: 20px; margin-bottom: 10px; }
-    .step h3::before { content: counter(step) ". "; counter-increment: step; color: var(--accent-ink); }
-    .step p { font-size: 15.5px; color: var(--text-2); }
+    .process { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 72px 0; }
+    .process .section-head { margin-bottom: 28px; }
+    .steps { list-style: none; counter-reset: step; max-width: 760px; }
+    .step { display: grid; grid-template-columns: 72px 1fr; gap: 0 20px; padding: 24px 0; border-top: 1px solid var(--line); }
+    .step::before { content: counter(step); counter-increment: step; font-family: var(--font-head); font-size: 44px; font-weight: 500; line-height: 1; color: var(--text-3); letter-spacing: -0.03em; }
+    .step h3 { font-size: 20px; margin-bottom: 6px; }
+    .step p { font-size: 16px; color: var(--text-2); max-width: 52ch; }
 
     /* ---------- Why ---------- */
     .story-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 48px 64px; align-items: start; }
     .story h2 { margin-bottom: 24px; }
-    .story p { color: var(--text-2); margin-bottom: 18px; max-width: 60ch; }
+    .story p { color: var(--text-2); margin-bottom: 18px; max-width: 56ch; }
     .story p:last-child { margin-bottom: 0; }
-    .team { padding-top: 10px; }
+    .team { padding-top: 8px; }
     .person { padding: 22px 0; border-top: 1px solid var(--line); }
     .person:last-of-type { border-bottom: 1px solid var(--line); }
     .person h3 { font-size: 19px; margin-bottom: 2px; }
-    .person .role { font-size: 14px; color: var(--accent-ink); margin-bottom: 10px; }
+    .person .role { font-size: 14px; color: var(--text-3); margin-bottom: 10px; }
     .person p { font-size: 15.5px; color: var(--text-2); }
     .team-foot { padding-top: 16px; font-size: 15px; color: var(--text-3); }
 
     .asks { margin-top: 72px; }
     .asks h3 { font-size: 15px; font-weight: 500; color: var(--text-3); margin-bottom: 18px; font-family: var(--font-body); }
     .ask-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 32px; list-style: none; }
-    .ask-list li {
-      padding-top: 16px; border-top: 1px solid var(--line);
-      font-family: var(--font-head); font-variation-settings: 'opsz' 20; font-size: 18px; line-height: 1.4; font-weight: 500; color: var(--text);
-    }
-    .ask-list li::before { content: "\201C"; color: var(--accent-ink); }
-    .ask-list li::after { content: "\201D"; color: var(--accent-ink); }
-
-    /* ---------- Work ---------- */
-    .work { padding-top: 0; }
-    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .work-card { display: flex; flex-direction: column; color: inherit; }
-    .work-shot {
-      display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px;
-      border: 1px solid var(--line-strong); background: #fff;
-      transition: border-color .15s ease;
-    }
-    .work-card:hover .work-shot { border-color: var(--text-3); }
-    .work-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-    .work-body { padding: 18px 2px 0; display: flex; flex-direction: column; gap: 6px; }
-    .work-body h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-    .work-body h3 small { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text-3); white-space: nowrap; }
-    .work-body p { color: var(--text-2); font-size: 16px; }
-    .work-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--accent-ink); }
-    .work-card:hover .work-link { text-decoration: underline; text-underline-offset: 0.2em; }
-    .work-link svg { width: 14px; height: 14px; }
+    .ask-list li { padding-top: 16px; border-top: 1px solid var(--line); font-family: var(--font-head); font-size: 18px; line-height: 1.4; font-weight: 500; color: var(--text); }
+    .ask-list li::before { content: "\201C"; color: var(--text-3); }
+    .ask-list li::after { content: "\201D"; color: var(--text-3); }
 
     /* ---------- Contact ---------- */
-    .contact { padding: 96px 0 112px; }
-    .contact-box {
-      display: grid; grid-template-columns: 7fr 5fr; gap: 32px 64px; align-items: center;
-      padding: 48px; border-radius: 12px;
-      background: var(--bg-2); border: 1px solid var(--line-strong);
-    }
-    .contact-box p { color: var(--text-2); max-width: 48ch; margin-top: 14px; }
+    .contact { padding: 88px 0 104px; }
+    .contact-box { display: grid; grid-template-columns: 7fr 5fr; gap: 32px 64px; align-items: center; padding: 44px 48px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line-strong); }
+    .contact-box p { color: var(--text-2); max-width: 44ch; margin-top: 14px; }
     .contact-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
     .email {
       display: inline-flex; align-items: center; gap: 12px;
-      font-family: var(--font-head); font-size: clamp(18px, 2.2vw, 24px); font-weight: 600; letter-spacing: -0.01em;
-      padding: 16px 22px; border-radius: 10px;
+      font-family: var(--font-head); font-size: 20px; font-weight: 600; letter-spacing: -0.01em;
+      padding: 14px 20px; border-radius: 10px;
       background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent-deep);
       transition: background .15s ease;
     }
     .email:hover { background: var(--accent-ink); }
-    .email svg { width: 22px; height: 22px; }
+    .email svg { width: 20px; height: 20px; }
     .contact-sub { font-size: 15px; color: var(--text-3); }
 
     /* ---------- Footer ---------- */
     footer { border-top: 1px solid var(--line); padding: 28px 0; }
-    .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--text-3); }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; font-size: 14px; color: var(--text-3); }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 960px) {
-      .hero-grid, .section-head, .story-grid, .contact-box { grid-template-columns: 1fr; }
-      .hero-grid { gap: 36px; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .service { grid-template-columns: 1fr; gap: 10px; }
+      .hero-grid, .story-grid, .contact-box { grid-template-columns: 1fr; }
+      .hero-grid { gap: 32px; }
+      .service { grid-template-columns: 1fr; gap: 8px; }
       .work-grid { grid-template-columns: 1fr; }
       .ask-list { grid-template-columns: 1fr 1fr; }
       .contact-box { padding: 36px 28px; }
     }
     @media (max-width: 640px) {
       body { font-size: 16px; }
+      .nav { height: 58px; }
       .nav-links { display: none; }
-      .hero { padding: 64px 0 56px; }
-      h1 { max-width: 12ch; }
-      section { padding: 64px 0; }
-      .section-head { margin-bottom: 32px; }
-      .steps { grid-template-columns: 1fr; gap: 24px; }
-      .ask-list { grid-template-columns: 1fr; gap: 18px; }
-      .hero-cta .btn { width: 100%; justify-content: center; }
+      .nav > .btn { display: none; }
+      .menu { display: block; position: relative; }
+      .menu summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 4px; font-size: 15px; font-weight: 500; color: var(--text-2); }
+      .menu summary::-webkit-details-marker { display: none; }
+      .menu summary svg { width: 18px; height: 18px; }
+      .menu[open] summary { color: var(--text); }
+      .menu-panel { position: absolute; right: 0; top: calc(100% + 8px); min-width: 220px; padding: 8px; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line-strong); display: flex; flex-direction: column; }
+      .menu-panel a { display: block; padding: 12px 12px; border-radius: 6px; font-size: 16px; color: var(--text); }
+      .menu-panel a:hover { background: var(--bg-3); }
+      .menu-panel .btn { margin-top: 6px; }
+      .hero { padding: 40px 0 44px; }
+      h1 { font-size: clamp(38px, 11vw, 46px); max-width: 12ch; }
+      .hero-grid { gap: 28px; }
+      .hero-copy { gap: 20px; }
+      .hero-cta .btn { width: 100%; }
+      .strip-inner { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 12px 0; font-size: 14px; }
+      .strip-inner::-webkit-scrollbar { display: none; }
+      .strip-inner span { white-space: nowrap; }
+      .strip-inner span + span::before { margin: 0 12px; }
+      .thesis { padding: 56px 0 48px; }
+      section { padding: 56px 0; }
+      .process { padding: 48px 0; }
+      .section-head { margin-bottom: 24px; }
+      .step { grid-template-columns: 44px 1fr; gap: 0 12px; padding: 18px 0; }
+      .step::before { font-size: 30px; }
+      .ask-list { grid-template-columns: 1fr; gap: 16px; }
+      .work-grid { gap: 32px; }
       .contact-box { padding: 28px 22px; }
-      .email { width: 100%; justify-content: center; font-size: 17px; padding: 15px 18px; }
-      .strip-inner { font-size: 13px; }
-      .strip-inner span + span::before { margin: 0 10px; }
+      .email { width: 100%; font-size: 17px; padding: 14px 18px; }
     }
   </style>
 </head>
@@ -244,19 +244,28 @@
   <header>
     <div class="wrap nav">
       <a class="logo" href="#top" aria-label="Melru Software home">
-        <svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#141b24" stroke="rgba(255,255,255,0.1)"/><path d="M5 8H14V12L19 10V22L14 20V24H5Z" fill="#3a4655" stroke="#141b24" stroke-width="1.2" stroke-linejoin="round"/><path d="M27 8H14V12L19 10V22L14 20V24H27Z" fill="#1f9e6a" stroke="#141b24" stroke-width="1.2" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="7" fill="#141b24" stroke="rgba(255,255,255,0.1)"/><path d="M5 8H14V12L19 10V22L14 20V24H5Z" fill="#3a4655" stroke="#141b24" stroke-width="1.2" stroke-linejoin="round"/><path d="M27 8H14V12L19 10V22L14 20V24H27Z" fill="#1f9e6a" stroke="#141b24" stroke-width="1.2" stroke-linejoin="round"/></svg>
         Melru Software
       </a>
       <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Our work</a>
         <a href="#services">What we build</a>
         <a href="#process">How we work</a>
         <a href="#why">Why Melru</a>
-        <a href="#work">Our work</a>
       </nav>
-      <a class="btn btn-primary" href="mailto:info@melrusoftware.com">
+      <a class="btn btn-ghost" href="mailto:info@melrusoftware.com">
         Email us
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
+      <details class="menu">
+        <summary aria-label="Menu">Menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+        <nav class="menu-panel" aria-label="Primary">
+          <a href="#work">Our work</a>
+          <a href="#services">What we build</a>
+          <a href="#process">How we work</a>
+          <a href="#why">Why Melru</a>
+          <a class="btn btn-primary" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">Email us</a>
+        </nav>
+      </details>
     </div>
   </header>
 
@@ -265,69 +274,105 @@
     <!-- Hero -->
     <section class="hero">
       <div class="wrap hero-grid">
-        <h1>Software for the thing that <span class="accent">shouldn't be this hard.</span></h1>
-        <div class="hero-side">
+        <div class="hero-copy">
+          <h1>Software for the thing that <span class="accent">shouldn't be this hard.</span></h1>
           <p class="lede">
-            Melru is a studio of two senior engineers. We build web apps, websites, internal tools, and AI products,
-            and you get custom software without the overhead of a big agency, from the people who will actually build it.
+            Two senior engineers, one backend and one frontend. We build the web app, internal tool, website, or AI product you need,
+            and you talk to the people building it.
           </p>
           <div class="hero-cta">
             <a class="btn btn-primary" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
               Tell us about your project
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </a>
-            <a class="btn btn-ghost" href="#services">See what we build</a>
+            <a class="btn btn-ghost" href="#work">See what we've built</a>
           </div>
           <p class="hero-note"><b>Taking new projects.</b> You'll hear back from one of us, usually the same day. No forms, no sales call required.</p>
         </div>
+        <figure class="hero-shot">
+          <div class="frame"><img src="assets/work/spend-enough-chart.jpg" alt="A chart from Spend Enough showing a plan's range of outcomes from age 45 to 100, with the middle outcome drawn as a line" width="880" height="580"></div>
+          <figcaption>From <a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough</a>, a tool we built and run.</figcaption>
+        </figure>
       </div>
     </section>
 
     <div class="strip">
       <div class="wrap strip-inner">
-        <span>Web apps</span>
-        <span>Internal tools</span>
-        <span>AI &amp; automation</span>
-        <span>MVPs for founders</span>
-        <span>Websites</span>
+        <span>Two senior engineers</span>
+        <span>Backend and frontend</span>
+        <span>Escondido, California</span>
         <span>Fixed scope, clear pricing</span>
+        <span>Replies usually the same day</span>
       </div>
     </div>
+
+    <div class="thesis">
+      <div class="wrap">
+        <p>We use AI to build fast. We spent years building by hand, so we know when it's wrong.</p>
+      </div>
+    </div>
+
+    <!-- Work -->
+    <section class="work" id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Two things we've shipped</h2>
+          <p>Two very different problems, two very different answers.</p>
+        </div>
+        <div class="work-grid">
+          <article class="work-card">
+            <div class="work-shot"><img src="assets/work/spend-enough.jpg" alt="The Spend Enough landing page: a headline asking whether you are spending enough, beside a chart of outcomes" loading="lazy" width="1600" height="1000"></div>
+            <div class="work-body">
+              <h3><a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough<span class="sr-only"> (opens in a new tab)</span></a> <small>Product</small></h3>
+              <p>A tool for one question: are you spending enough for the life you want? Enter your numbers, change one decision, and see the range of where it leads. It started because one of us didn't want to keep looking at a spreadsheet.</p>
+              <span class="work-link">spendenough.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </div>
+          </article>
+          <article class="work-card">
+            <div class="work-shot"><img src="assets/work/the-slime-girls.jpg" alt="The slime girls website: a pink hero reading scoop, sprinkle, squish, with a photo of the slime bar" loading="lazy" width="1600" height="1000"></div>
+            <div class="work-body">
+              <h3><a href="https://theslimegirls.com" target="_blank" rel="noopener">The Slime Girls<span class="sr-only"> (opens in a new tab)</span></a> <small>Website</small></h3>
+              <p>A mother and daughter slime studio in Long Beach. A site for booking parties, finding them at markets, and shopping the slimes.</p>
+              <span class="work-link">theslimegirls.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <!-- Services -->
     <section id="services">
       <div class="wrap">
         <div class="section-head">
           <h2>What would you build if you had two engineers?</h2>
-          <p>We use AI to build fast. We spent years building by hand, so we know when it's wrong.</p>
         </div>
         <ul class="services">
           <li class="service">
             <h3>Custom web apps and internal tools</h3>
             <div>
               <p>The dashboard, portal, or admin tool your team keeps wishing existed. Built to fit how you already work.</p>
-              <p class="eg"><b>Things like</b> replacing spreadsheets and manual processes, customer and staff portals, reporting and admin dashboards.</p>
+              <p class="eg">Replacing spreadsheets and manual processes. Customer and staff portals. Reporting and admin dashboards.</p>
             </div>
           </li>
           <li class="service">
             <h3>AI integration and automation</h3>
             <div>
               <p>Add AI features to the software you already have, or automate the work that eats your week.</p>
-              <p class="eg"><b>Things like</b> document and email processing, chat and search over your own data, workflow automation between your tools.</p>
+              <p class="eg">Document and email processing. Chat and search over your own data. Workflow automation between your tools.</p>
             </div>
           </li>
           <li class="service">
             <h3>MVPs for founders</h3>
             <div>
               <p>Have an idea and need it in front of real users? We take it from a description to a launched product you can charge for.</p>
-              <p class="eg"><b>Things like</b> scoping a version 1 that ships, the landing page, app, and payments, built so you can keep iterating.</p>
+              <p class="eg">A version 1 scoped to ship. The landing page, the app, and payments. Built so you can keep iterating.</p>
             </div>
           </li>
           <li class="service">
             <h3>Websites for small businesses</h3>
             <div>
-              <p>A site that looks like your business, loads fast, and is easy for you to update. Recent work includes a site for a slime shop.</p>
-              <p class="eg"><b>Things like</b> design and build start to finish, shops, bookings, and contact forms, hosting and domain set up for you.</p>
+              <p>A site that looks like your business, loads fast, and is easy for you to update.</p>
+              <p class="eg">Design and build, start to finish. Shops, bookings, and contact forms. Hosting and domain set up for you.</p>
             </div>
           </li>
         </ul>
@@ -343,20 +388,28 @@
         </div>
         <ol class="steps">
           <li class="step">
-            <h3>Tell us the problem</h3>
-            <p>Email us what's slow, manual, or missing. We'll ask a few questions and tell you whether software is the right fix.</p>
+            <div>
+              <h3>Tell us the problem</h3>
+              <p>Email us what's slow, manual, or missing. We'll ask a few questions and tell you whether software is the right fix.</p>
+            </div>
           </li>
           <li class="step">
-            <h3>Agree on a scope</h3>
-            <p>You get a written scope, a timeline, and a price before anything is built. No surprises later.</p>
+            <div>
+              <h3>Agree on a scope</h3>
+              <p>You get a written scope, a timeline, and a price before anything is built. No surprises later.</p>
+            </div>
           </li>
           <li class="step">
-            <h3>See it early, often</h3>
-            <p>You see a working version early, not at the end. You react, we adjust.</p>
+            <div>
+              <h3>See it early, often</h3>
+              <p>You see a working version early, not at the end. You react, we adjust.</p>
+            </div>
           </li>
           <li class="step">
-            <h3>Launch and keep going</h3>
-            <p>We deploy it, hand over everything, and stay available for the next round of improvements.</p>
+            <div>
+              <h3>Launch and keep going</h3>
+              <p>We deploy it, hand over everything, and stay available for the next round of improvements.</p>
+            </div>
           </li>
         </ol>
       </div>
@@ -412,34 +465,6 @@
       </div>
     </section>
 
-    <!-- Work -->
-    <section class="work" id="work">
-      <div class="wrap">
-        <div class="section-head">
-          <h2>Things we've built</h2>
-          <p>Two very different problems, two very different answers.</p>
-        </div>
-        <div class="work-grid">
-          <a class="work-card" href="https://spendenough.com" target="_blank" rel="noopener">
-            <div class="work-shot"><img src="assets/work/spend-enough.jpg" alt="The Spend Enough landing page: a headline asking whether you are spending enough, beside a chart of outcomes" loading="lazy"></div>
-            <div class="work-body">
-              <h3>Spend Enough <small>Product</small></h3>
-              <p>A tool for one question: are you spending enough for the life you want? Enter your numbers, change one decision, and see the range of where it leads. It started because one of us didn't want to keep looking at a spreadsheet.</p>
-              <span class="work-link">spendenough.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-            </div>
-          </a>
-          <a class="work-card" href="https://theslimegirls.com" target="_blank" rel="noopener">
-            <div class="work-shot"><img src="assets/work/the-slime-girls.jpg" alt="The slime girls website: a pink hero reading scoop, sprinkle, squish, with a photo of the slime bar" loading="lazy"></div>
-            <div class="work-body">
-              <h3>the slime girls <small>Website</small></h3>
-              <p>A mother and daughter slime studio in Long Beach. A site for booking parties, finding them at markets, and shopping the slimes.</p>
-              <span class="work-link">theslimegirls.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </section>
-
     <!-- Contact -->
     <section class="contact" id="contact">
       <div class="wrap">
@@ -450,7 +475,7 @@
           </div>
           <div class="contact-side">
             <a class="email" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
               info@melrusoftware.com
             </a>
             <p class="contact-sub">You'll hear back from one of us, usually the same day.</p>
@@ -463,13 +488,18 @@
 
   <footer>
     <div class="wrap foot">
-      <span>© <span id="year">2026</span> Melru Software</span>
+      <span>© <span id="year">2026</span> Melru Software · Escondido, California</span>
       <span><a href="mailto:info@melrusoftware.com">info@melrusoftware.com</a></span>
     </div>
   </footer>
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
+    var menu = document.querySelector('.menu');
+    if (menu) {
+      menu.addEventListener('click', function (e) { if (e.target.closest('a')) menu.removeAttribute('open'); });
+      document.addEventListener('click', function (e) { if (!menu.contains(e.target)) menu.removeAttribute('open'); });
+    }
   </script>
 </body>
 </html>
