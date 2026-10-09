@@ -45,13 +45,16 @@
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    p a, li a, .foot a, .credit a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+    p a, li a, .foot a, .credit a { text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 0.2em; }
     p a:hover, li a:hover, .foot a:hover, .credit a:hover { text-decoration-color: var(--accent-ink); }
     ::selection { background: var(--accent); color: var(--on-accent); }
-    :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; border-radius: 2px; }
+    :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; }
+    html { scroll-padding-top: 80px; }
     strong { font-weight: 600; }
     svg { flex-shrink: 0; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; padding: 10px 14px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 600; }
+    .skip:focus { left: 12px; }
 
     .wrap { width: min(var(--wrap), 100% - 3rem); margin: 0 auto; }
 
@@ -72,13 +75,13 @@
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
       min-height: 44px; padding: 10px 16px; border-radius: 8px;
-      font-weight: 600; font-size: 15px; line-height: 1; white-space: nowrap;
+      font-weight: 600; font-size: 15px; line-height: 1.2; white-space: nowrap;
       transition: background .15s ease, border-color .15s ease, color .15s ease;
     }
     .btn-primary { background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent-deep); }
     .btn-primary:hover { background: var(--accent-ink); }
-    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line-strong); }
-    .btn-ghost:hover { border-color: var(--text-3); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--text-3); }
+    .btn-ghost:hover { border-color: var(--text-2); }
     .btn svg { width: 16px; height: 16px; }
 
     /* ---------- Hero ---------- */
@@ -100,7 +103,7 @@
     .hero-shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .hero-shot .frame:hover { border-color: var(--text-3); }
     .hero-shot figcaption { margin-top: 10px; font-size: 14px; color: var(--text-3); }
-    .hero-shot figcaption a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+    .hero-shot figcaption a { color: var(--text-2); text-decoration: underline; text-decoration-color: var(--text-3); text-underline-offset: 0.2em; }
     .hero-shot figcaption a:hover { text-decoration-color: var(--accent-ink); }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -112,8 +115,9 @@
     /* ---------- Facts strip ---------- */
     .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .strip-inner { display: flex; flex-wrap: wrap; gap: 6px 0; padding: 14px 0; font-size: 14.5px; color: var(--text-3); }
-    .strip-inner span { display: inline-flex; align-items: center; }
-    .strip-inner span + span::before { content: "·"; margin: 0 14px; color: var(--line-strong); }
+    .strip-inner { list-style: none; }
+    .strip-inner li { display: inline-flex; align-items: center; }
+    .strip-inner li + li::before { content: "·"; margin: 0 14px; color: var(--text-3); }
 
     /* ---------- Thesis ---------- */
     .thesis { padding: 80px 0 72px; }
@@ -139,6 +143,7 @@
     .work-body p { color: var(--text-2); font-size: 16px; }
     .work-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 15px; font-weight: 500; color: var(--accent-ink); }
     .work-link svg { width: 14px; height: 14px; }
+    .work-link:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 
     /* ---------- Services ---------- */
     .services { list-style: none; border-top: 1px solid var(--line); }
@@ -181,7 +186,7 @@
     .contact-box p { color: var(--text-2); max-width: 44ch; margin-top: 14px; }
     .contact-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
     .email {
-      display: inline-flex; align-items: center; gap: 12px;
+      display: inline-flex; align-items: center; gap: 12px; white-space: normal; overflow-wrap: anywhere; min-width: 0;
       font-family: var(--font-head); font-size: 20px; font-weight: 600; letter-spacing: -0.01em;
       padding: 14px 20px; border-radius: 10px;
       background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent-deep);
@@ -194,6 +199,7 @@
     /* ---------- Footer ---------- */
     footer { border-top: 1px solid var(--line); padding: 28px 0; }
     .foot { display: flex; justify-content: space-between; align-items: center; gap: 12px 24px; flex-wrap: wrap; font-size: 14px; color: var(--text-3); }
+    .foot a { display: inline-block; padding: 6px 0; }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 960px) {
@@ -214,7 +220,7 @@
       .menu summary::-webkit-details-marker { display: none; }
       .menu summary svg { width: 18px; height: 18px; }
       .menu[open] summary { color: var(--text); }
-      .menu-panel { position: absolute; right: 0; top: calc(100% + 8px); min-width: 220px; padding: 8px; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--line-strong); display: flex; flex-direction: column; }
+      .menu-panel { position: absolute; right: 0; top: calc(100% + 8px); min-width: 220px; padding: 8px; border-radius: 10px; background: var(--bg-2); border: 1px solid var(--text-3); display: flex; flex-direction: column; }
       .menu-panel a { display: block; padding: 12px 12px; border-radius: 6px; font-size: 16px; color: var(--text); }
       .menu-panel a:hover { background: var(--bg-3); }
       .menu-panel .btn { margin-top: 6px; }
@@ -222,11 +228,9 @@
       h1 { font-size: clamp(38px, 11vw, 46px); max-width: 12ch; }
       .hero-grid { gap: 28px; }
       .hero-copy { gap: 20px; }
-      .hero-cta .btn { width: 100%; }
-      .strip-inner { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding: 12px 0; font-size: 14px; }
-      .strip-inner::-webkit-scrollbar { display: none; }
-      .strip-inner span { white-space: nowrap; }
-      .strip-inner span + span::before { margin: 0 12px; }
+      .hero-cta .btn { width: 100%; white-space: normal; }
+      .strip-inner { padding: 12px 0; font-size: 14px; row-gap: 6px; }
+      .strip-inner li + li::before { margin: 0 12px; }
       .thesis { padding: 56px 0 48px; }
       section { padding: 56px 0; }
       .process { padding: 48px 0; }
@@ -241,6 +245,7 @@
   </style>
 </head>
 <body>
+  <a class="skip" href="#top">Skip to content</a>
 
   <header>
     <div class="wrap nav">
@@ -254,11 +259,11 @@
         <a href="#process">How we work</a>
         <a href="#why">Why Melru</a>
       </nav>
-      <a class="btn btn-ghost" href="mailto:info@melrusoftware.com">
+      <a class="btn btn-ghost" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
         Email us
       </a>
       <details class="menu">
-        <summary aria-label="Menu">Menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+        <summary>Menu <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
         <nav class="menu-panel" aria-label="Primary">
           <a href="#work">Our work</a>
           <a href="#services">What we build</a>
@@ -291,20 +296,20 @@
           <p class="hero-note"><b>Taking new projects.</b> You'll hear back from one of us, usually the same day. No forms, no sales call required.</p>
         </div>
         <figure class="hero-shot">
-          <a class="frame" href="https://spendenough.com" target="_blank" rel="noopener" aria-label="Open Spend Enough in a new tab"><img src="assets/work/spend-enough-chart.jpg" alt="From Spend Enough: $86,000 a year, and a chart of the plan’s range of outcomes from age 45 to 100 with the middle outcome drawn as a line" width="760" height="620"></a>
-          <figcaption><a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough</a>, one of the things we've built.</figcaption>
+          <a class="frame" href="https://spendenough.com" target="_blank" rel="noopener"><img src="assets/work/spend-enough-chart.jpg" alt="From Spend Enough: $86,000 a year, and a chart of the plan’s range of outcomes from age 45 to 100 with the middle outcome drawn as a line" width="760" height="620"><span class="sr-only"> (opens in a new tab)</span></a>
+          <figcaption><a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough<span class="sr-only"> (opens in a new tab)</span></a>, one of the things we've built.</figcaption>
         </figure>
       </div>
     </section>
 
     <div class="strip">
-      <div class="wrap strip-inner">
-        <span>Two senior engineers</span>
-        <span>Backend and frontend</span>
-        <span>Escondido, California</span>
-        <span>Fixed scope, clear pricing</span>
-        <span>Replies usually the same day</span>
-      </div>
+      <ul class="wrap strip-inner" role="list">
+        <li>Two senior engineers</li>
+        <li>Backend and frontend</li>
+        <li>Escondido, California</li>
+        <li>Fixed scope, clear pricing</li>
+        <li>Replies usually the same day</li>
+      </ul>
     </div>
 
     <div class="thesis">
@@ -326,7 +331,7 @@
             <div class="work-body">
               <h3><a href="https://spendenough.com" target="_blank" rel="noopener">Spend Enough<span class="sr-only"> (opens in a new tab)</span></a> <small>Product</small></h3>
               <p>A tool for one question: are you spending enough for the life you want? Enter your numbers, change one decision, and see the range of where it leads. It started because one of us didn't want to keep looking at a spreadsheet.</p>
-              <span class="work-link">spendenough.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+              <a class="work-link" href="https://spendenough.com" target="_blank" rel="noopener">spendenough.com<span class="sr-only"> (opens in a new tab)</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
             </div>
           </article>
           <article class="work-card">
@@ -334,7 +339,7 @@
             <div class="work-body">
               <h3><a href="https://theslimegirls.com" target="_blank" rel="noopener">The Slime Girls<span class="sr-only"> (opens in a new tab)</span></a> <small>Website</small></h3>
               <p>A mother and daughter slime studio in Long Beach. A site for booking parties, finding them at markets, and shopping the slimes.</p>
-              <span class="work-link">theslimegirls.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+              <a class="work-link" href="https://theslimegirls.com" target="_blank" rel="noopener">theslimegirls.com<span class="sr-only"> (opens in a new tab)</span> <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
             </div>
           </article>
         </div>
@@ -347,7 +352,7 @@
         <div class="section-head">
           <h2>What would you build if you had two engineers?</h2>
         </div>
-        <ul class="services">
+        <ul class="services" role="list">
           <li class="service">
             <h3>Custom web apps and internal tools</h3>
             <div>
@@ -387,7 +392,7 @@
           <h2>From first email to working software.</h2>
           <p>Short cycles, plain language, and something you can click on early.</p>
         </div>
-        <ol class="steps">
+        <ol class="steps" role="list">
           <li class="step">
             <div>
               <h3>Tell us the problem</h3>
@@ -454,7 +459,7 @@
 
         <div class="asks">
           <h3>Things people have brought us</h3>
-          <ul class="ask-list">
+          <ul class="ask-list" role="list">
             <li>This website we depend on is hard to use. Can you make a tool that makes it easier?</li>
             <li>We need a system to organize and visualize the data for a huge project with a lot of moving parts.</li>
             <li>Reserving test environments happens over Slack and we keep stepping on each other. Can a bot handle it?</li>
@@ -500,6 +505,7 @@
     if (menu) {
       menu.addEventListener('click', function (e) { if (e.target.closest('a')) menu.removeAttribute('open'); });
       document.addEventListener('click', function (e) { if (!menu.contains(e.target)) menu.removeAttribute('open'); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.hasAttribute('open')) { menu.removeAttribute('open'); menu.querySelector('summary').focus(); } });
     }
   </script>
 </body>
