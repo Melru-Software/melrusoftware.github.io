@@ -13,24 +13,24 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230a0d12%22/%3E%3Cpath d=%22M5 8H14V12L19 10V22L14 20V24H5Z%22 fill=%22%233a4655%22 stroke=%22%230a0d12%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M27 8H14V12L19 10V22L14 20V24H27Z%22 fill=%22%231f9e6a%22 stroke=%22%230a0d12%22 stroke-width=%221.2%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0d12;
       --bg-2: #0f141b;
       --bg-3: #141b24;
-      --line: rgba(255, 255, 255, 0.08);
-      --line-strong: rgba(255, 255, 255, 0.14);
+      --line: rgba(232, 237, 242, 0.09);
+      --line-strong: rgba(232, 237, 242, 0.18);
       --text: #e8edf2;
-      --text-2: #a7b1bd;
-      --text-3: #6f7a86;
+      --text-2: #aab4c0;
+      --text-3: #8a95a3;
       --accent: #1f9e6a;
-      --accent-2: #178a5b;
-      --accent-dim: rgba(31, 158, 106, 0.12);
-      --accent-glow: rgba(31, 158, 106, 0.35);
-      --radius: 16px;
-      --font-head: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-      --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --accent-ink: #2db77c;      /* accent used as text on dark surfaces */
+      --accent-deep: #178a5b;
+      --on-accent: #06281b;
+      --font-head: 'Bricolage Grotesque', 'Instrument Sans', system-ui, sans-serif;
+      --font-body: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      --wrap: 1120px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -39,317 +39,207 @@
       font-family: var(--font-body);
       background: var(--bg);
       color: var(--text);
-      line-height: 1.6;
+      font-size: 17px; line-height: 1.6;
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    ::selection { background: var(--accent); color: #06281b; }
+    p a, li a, .foot a { text-decoration: underline; text-decoration-color: var(--line-strong); text-underline-offset: 0.2em; }
+    p a:hover, li a:hover, .foot a:hover { text-decoration-color: var(--accent-ink); }
+    ::selection { background: var(--accent); color: var(--on-accent); }
+    :focus-visible { outline: 2px solid var(--accent-ink); outline-offset: 3px; border-radius: 2px; }
+    strong { font-weight: 600; }
 
-    .wrap { width: min(1120px, 100% - 3rem); margin: 0 auto; }
+    .wrap { width: min(var(--wrap), 100% - 3rem); margin: 0 auto; }
 
-    /* ---------- Background ---------- */
-    .bg {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    h1, h2, h3 {
+      font-family: var(--font-head);
+      font-variation-settings: 'opsz' 96;
+      text-wrap: balance;
     }
-    .bg .grid {
-      position: absolute; inset: 0;
-      background-image:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 64px 64px;
-      mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 20%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, #000 20%, transparent 70%);
-      opacity: 0.7;
+    h2 {
+      font-size: clamp(30px, 3.6vw, 42px); font-weight: 600; line-height: 1.08; letter-spacing: -0.02em;
+      max-width: 22ch;
     }
-    .bg .glow {
-      position: absolute; width: 900px; height: 900px; border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-glow) 0%, rgba(31,158,106,0.08) 35%, transparent 65%);
-      top: -420px; left: 50%; transform: translateX(-50%);
-      filter: blur(20px);
-    }
-    .bg .glow-2 {
-      position: absolute; width: 600px; height: 600px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(64,140,224,0.18) 0%, transparent 65%);
-      right: -200px; top: 40%; filter: blur(30px);
-    }
-    main, header, footer { position: relative; z-index: 1; }
+    h3 { font-size: 22px; font-weight: 600; line-height: 1.2; letter-spacing: -0.01em; font-variation-settings: 'opsz' 24; }
 
-    /* ---------- Nav ---------- */
+    /* ---------- Header ---------- */
     header {
       position: sticky; top: 0; z-index: 50;
-      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-      background: rgba(10, 13, 18, 0.72);
+      background: var(--bg);
       border-bottom: 1px solid var(--line);
     }
-    .nav {
-      display: flex; align-items: center; justify-content: space-between;
-      height: 68px;
-    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
     .logo {
       display: flex; align-items: center; gap: 10px;
-      font-family: var(--font-head); font-weight: 700; font-size: 17px; letter-spacing: 0.2px;
+      font-family: var(--font-head); font-weight: 600; font-size: 17px; letter-spacing: -0.01em;
     }
-    .logo svg { width: 28px; height: 28px; }
-    .nav-links { display: flex; gap: 32px; font-size: 14px; color: var(--text-2); }
-    .nav-links a:hover { color: var(--text); }
+    .logo svg { width: 26px; height: 26px; }
+    .nav-links { display: flex; gap: 28px; font-size: 15px; color: var(--text-2); }
+    .nav-links a { padding: 6px 0; border-bottom: 1px solid transparent; }
+    .nav-links a:hover { color: var(--text); border-bottom-color: var(--line-strong); }
+
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 18px; border-radius: 10px;
-      font-weight: 600; font-size: 14px; line-height: 1;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+      padding: 11px 16px; border-radius: 8px;
+      font-weight: 600; font-size: 15px; line-height: 1;
       white-space: nowrap;
+      transition: background .15s ease, border-color .15s ease, color .15s ease;
     }
-    .btn-primary {
-      background: var(--accent); color: #06281b;
-      box-shadow: 0 0 0 1px rgba(31,158,106,0.4), 0 8px 24px -8px var(--accent-glow);
-    }
-    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 0 1px rgba(31,158,106,0.6), 0 14px 32px -8px var(--accent-glow); }
-    .btn-ghost {
-      background: transparent; color: var(--text);
-      box-shadow: inset 0 0 0 1px var(--line-strong);
-    }
-    .btn-ghost:hover { background: rgba(255,255,255,0.04); }
+    .btn-primary { background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent-deep); }
+    .btn-primary:hover { background: var(--accent-ink); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line-strong); }
+    .btn-ghost:hover { border-color: var(--text-3); }
     .btn svg { width: 16px; height: 16px; }
 
     /* ---------- Hero ---------- */
-    .hero { padding: 120px 0 96px; text-align: center; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 500; color: var(--accent);
-      background: var(--accent-dim); border: 1px solid rgba(31,158,106,0.25);
-      padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
-    }
-    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+    .hero { padding: 96px 0 72px; }
+    .hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 48px 64px; align-items: end; }
     h1 {
-      font-family: var(--font-head);
-      font-size: clamp(40px, 6.4vw, 76px);
-      font-weight: 700; line-height: 1.04; letter-spacing: -0.025em;
-      max-width: 26ch; margin: 0 auto 24px;
+      font-size: clamp(42px, 6vw, 78px); font-weight: 700; line-height: 1; letter-spacing: -0.03em;
+      max-width: 14ch;
     }
-    h1 .accent {
-      background: linear-gradient(120deg, #4fd39a 0%, var(--accent) 45%, #0ea5a5 100%);
-      -webkit-background-clip: text; background-clip: text; color: transparent;
-    }
-    .lede {
-      font-size: clamp(17px, 2vw, 20px); color: var(--text-2);
-      max-width: 56ch; margin: 0 auto 40px;
-    }
-    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-    .hero-cta .btn { padding: 15px 24px; font-size: 15px; border-radius: 12px; }
-    .hero-note { margin-top: 20px; font-size: 13px; color: var(--text-3); }
+    h1 .accent { color: var(--accent-ink); }
+    .hero-side { display: flex; flex-direction: column; gap: 24px; padding-bottom: 6px; }
+    .lede { font-size: clamp(17px, 1.6vw, 19px); color: var(--text-2); max-width: 46ch; }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-cta .btn { padding: 13px 18px; }
+    .hero-note { font-size: 14px; color: var(--text-3); max-width: 44ch; }
+    .hero-note b { font-weight: 500; color: var(--text-2); }
 
-    /* ---------- Marquee strip ---------- */
-    .strip {
-      border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,0.015);
+    /* one authored entrance, on load only */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero h1, .hero-side { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+      .hero-side { animation-delay: .12s; }
+      @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
     }
+
+    /* ---------- Strip ---------- */
+    .strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .strip-inner {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 40px;
-      padding: 20px 0; font-size: 13px; color: var(--text-3); letter-spacing: 0.04em; text-transform: uppercase;
+      display: flex; flex-wrap: wrap; gap: 8px 0;
+      padding: 16px 0; font-size: 14px; color: var(--text-3);
     }
-    .strip-inner span { display: inline-flex; align-items: center; gap: 8px; }
-    .strip-inner span::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); }
+    .strip-inner span { display: inline-flex; align-items: center; }
+    .strip-inner span + span::before { content: "·"; margin: 0 14px; color: var(--line-strong); }
 
     /* ---------- Sections ---------- */
-    section { padding: 104px 0; }
-    .section-head { max-width: 640px; margin-bottom: 56px; }
-    .label {
-      font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 14px;
-    }
-    h2 {
-      font-family: var(--font-head);
-      font-size: clamp(30px, 4vw, 44px); font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-    .section-head p { color: var(--text-2); font-size: 17px; }
+    section { padding: 96px 0; }
+    .section-head { display: grid; grid-template-columns: 7fr 5fr; gap: 24px 64px; align-items: end; margin-bottom: 48px; }
+    .section-head p { color: var(--text-2); font-size: 17px; max-width: 42ch; }
 
-    /* ---------- Services ---------- */
-    .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    .card {
-      position: relative;
-      background: linear-gradient(180deg, var(--bg-3) 0%, var(--bg-2) 100%);
-      border: 1px solid var(--line); border-radius: var(--radius);
-      padding: 30px 28px 32px; overflow: hidden;
-      transition: border-color .2s ease, transform .2s ease;
+    /* ---------- Services: a list, not cards ---------- */
+    .services { list-style: none; border-top: 1px solid var(--line); }
+    .service {
+      display: grid; grid-template-columns: 5fr 7fr; gap: 16px 64px;
+      padding: 32px 0; border-bottom: 1px solid var(--line);
     }
-    .card::before {
-      content: ""; position: absolute; inset: 0 0 auto 0; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(31,158,106,0.6), transparent);
-      opacity: 0; transition: opacity .2s ease;
-    }
-    .card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
-    .card:hover::before { opacity: 1; }
-    .icon {
-      width: 46px; height: 46px; border-radius: 12px;
-      background: var(--accent-dim); border: 1px solid rgba(31,158,106,0.25);
-      display: grid; place-items: center; margin-bottom: 22px;
-    }
-    .icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-    .card h3 { font-family: var(--font-head); font-size: 21px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
-    .card p { color: var(--text-2); font-size: 15px; margin-bottom: 18px; }
-    .card ul { list-style: none; display: grid; gap: 8px; }
-    .card li { font-size: 14px; color: var(--text-3); display: flex; gap: 10px; align-items: flex-start; }
-    .card li::before { content: "→"; color: var(--accent); flex-shrink: 0; }
+    .service p { color: var(--text-2); font-size: 17px; max-width: 58ch; }
+    .service .eg { margin-top: 10px; font-size: 15px; color: var(--text-3); max-width: 58ch; }
+    .service .eg b { font-weight: 500; color: var(--text-2); }
 
     /* ---------- Process ---------- */
-    .process { background: rgba(255,255,255,0.015); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
-    .step { padding: 8px 28px 8px 0; position: relative; }
-    .step + .step { padding-left: 28px; border-left: 1px solid var(--line); }
-    .num {
-      font-family: var(--font-head); font-size: 13px; font-weight: 600; color: var(--accent);
-      letter-spacing: 0.1em; margin-bottom: 18px;
-    }
-    .step h3 { font-family: var(--font-head); font-size: 19px; font-weight: 600; margin-bottom: 10px; }
-    .step p { font-size: 14.5px; color: var(--text-2); }
+    .process { background: var(--bg-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; list-style: none; counter-reset: step; }
+    .step { border-top: 1px solid var(--line-strong); padding-top: 20px; }
+    .step h3 { font-size: 20px; margin-bottom: 10px; }
+    .step h3::before { content: counter(step) ". "; counter-increment: step; color: var(--accent-ink); }
+    .step p { font-size: 15.5px; color: var(--text-2); }
 
-    /* ---------- Why / Story ---------- */
-    .story-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
-    .story p { color: var(--text-2); font-size: 17px; margin-bottom: 18px; }
+    /* ---------- Why ---------- */
+    .story-grid { display: grid; grid-template-columns: 7fr 5fr; gap: 48px 64px; align-items: start; }
+    .story h2 { margin-bottom: 24px; }
+    .story p { color: var(--text-2); margin-bottom: 18px; max-width: 60ch; }
     .story p:last-child { margin-bottom: 0; }
-    .panel {
-      background: linear-gradient(160deg, var(--bg-3), var(--bg-2));
-      border: 1px solid var(--line); border-radius: 20px; padding: 8px;
-      box-shadow: 0 30px 80px -30px rgba(0,0,0,0.7);
-    }
-    .panel-inner {
-      border-radius: 14px; background: var(--bg); border: 1px solid var(--line);
-      padding: 26px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; line-height: 1.75;
-    }
-    .panel-bar { display: flex; gap: 6px; margin-bottom: 18px; }
-    .panel-bar i { width: 10px; height: 10px; border-radius: 50%; background: var(--line-strong); display: block; }
-    .panel-bar i:first-child { background: rgba(31,158,106,0.6); }
-    .pl { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
-    .pl:last-child { border-bottom: 0; }
-    .pl .k { color: var(--text-3); }
-    .pl .v { color: var(--text); }
-    .pl .v.ok { color: var(--accent); }
-    .pl .v.bad { color: #ff7d7d; text-decoration: line-through; opacity: .8; }
+    .team { padding-top: 10px; }
+    .person { padding: 22px 0; border-top: 1px solid var(--line); }
+    .person:last-of-type { border-bottom: 1px solid var(--line); }
+    .person h3 { font-size: 19px; margin-bottom: 2px; }
+    .person .role { font-size: 14px; color: var(--accent-ink); margin-bottom: 10px; }
+    .person p { font-size: 15.5px; color: var(--text-2); }
+    .team-foot { padding-top: 16px; font-size: 15px; color: var(--text-3); }
 
-    /* Team panel */
-    .team { display: grid; gap: 10px; }
-    .person {
-      display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: start;
-      padding: 18px; border-radius: 12px; background: var(--bg-3); border: 1px solid var(--line);
-    }
-    .person .avatar {
-      width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
-      font-family: var(--font-head); font-weight: 700; font-size: 15px;
-      background: var(--accent-dim); color: var(--accent); border: 1px solid rgba(31,158,106,0.3);
-    }
-    .person .avatar.alt { background: rgba(90,184,255,0.12); color: #7cc4ff; border-color: rgba(90,184,255,0.3); }
-    .person h4 { font-family: var(--font-head); font-size: 15px; font-weight: 600; margin-bottom: 2px; }
-    .person .role { font-size: 12px; color: var(--text-3); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
-    .person p { font-size: 14px; color: var(--text-2); font-family: var(--font-body); line-height: 1.55; }
-    .team-foot { padding: 14px 6px 4px; font-size: 13px; color: var(--text-3); text-align: center; }
-
-    /* Brought-to-us list */
-    .asks { margin-top: 64px; padding-top: 48px; border-top: 1px solid var(--line); }
-    .asks-head { font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 20px; }
-    .ask-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; list-style: none; }
+    .asks { margin-top: 72px; }
+    .asks h3 { font-size: 15px; font-weight: 500; color: var(--text-3); margin-bottom: 18px; font-family: var(--font-body); }
+    .ask-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 32px; list-style: none; }
     .ask-list li {
-      padding: 16px 18px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,0.02);
-      font-size: 15px; color: var(--text); font-style: italic;
+      padding-top: 16px; border-top: 1px solid var(--line);
+      font-family: var(--font-head); font-variation-settings: 'opsz' 20; font-size: 18px; line-height: 1.4; font-weight: 500; color: var(--text);
     }
-    .ask-list li::before { content: "“"; color: var(--accent); font-style: normal; font-family: var(--font-head); font-size: 22px; line-height: 0; margin-right: 6px; vertical-align: -6px; }
-
-    /* ---------- Contact ---------- */
-    .contact { padding: 120px 0 128px; }
-    .contact-box {
-      position: relative; overflow: hidden; margin-top: 22px;
-      border: 1px solid rgba(31,158,106,0.28); border-radius: 24px;
-      background:
-        radial-gradient(ellipse 60% 80% at 50% -20%, rgba(31,158,106,0.22), transparent 60%),
-        linear-gradient(180deg, var(--bg-3), var(--bg-2));
-      text-align: center; padding: 80px 32px;
-    }
-    .contact-box h2 { max-width: 20ch; margin: 0 auto 16px; }
-    .contact-box > p { color: var(--text-2); font-size: 17px; max-width: 52ch; margin: 0 auto 36px; }
-    .email {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-family: var(--font-head); font-size: clamp(18px, 3vw, 26px); font-weight: 600;
-      padding: 18px 28px; border-radius: 14px;
-      background: var(--accent); color: #06281b;
-      box-shadow: 0 0 0 1px rgba(31,158,106,0.5), 0 20px 50px -14px var(--accent-glow);
-      transition: transform .15s ease;
-    }
-    .email:hover { transform: translateY(-2px); }
-    .email svg { width: 22px; height: 22px; }
-    .contact-sub { margin-top: 22px; font-size: 14px; color: var(--text-3); }
-
-    /* ---------- Footer ---------- */
-    footer { border-top: 1px solid var(--line); padding: 32px 0; }
-    .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--text-3); }
-    .foot a:hover { color: var(--text); }
+    .ask-list li::before { content: "\201C"; color: var(--accent-ink); }
+    .ask-list li::after { content: "\201D"; color: var(--accent-ink); }
 
     /* ---------- Work ---------- */
-    .work { padding-top: 0; padding-bottom: 0; }
-    .work-head { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 22px; }
-    .work-head .label { margin-bottom: 0; }
-    .work-head p { color: var(--text-3); font-size: 14px; }
-    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-    .work-card {
-      display: flex; flex-direction: column; border-radius: var(--radius); overflow: hidden;
-      background: var(--bg-2); border: 1px solid var(--line); color: inherit;
-      transition: transform .15s ease, border-color .15s ease;
+    .work { padding-top: 0; }
+    .work-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .work-card { display: flex; flex-direction: column; color: inherit; }
+    .work-shot {
+      display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 8px;
+      border: 1px solid var(--line-strong); background: #fff;
+      transition: border-color .15s ease;
     }
-    .work-card:hover { border-color: var(--line-strong); transform: translateY(-3px); }
-    .work-shot { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid var(--line); background: #fff; }
+    .work-card:hover .work-shot { border-color: var(--text-3); }
     .work-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-    .work-body { padding: 22px 24px 24px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-    .work-kind { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
-    .work-body h3 { font-family: var(--font-head); font-size: 22px; font-weight: 700; letter-spacing: -0.01em; }
-    .work-body p { color: var(--text-2); font-size: 15px; flex: 1; }
-    .work-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 14px; font-weight: 600; color: var(--accent); }
+    .work-body { padding: 18px 2px 0; display: flex; flex-direction: column; gap: 6px; }
+    .work-body h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+    .work-body h3 small { font-family: var(--font-body); font-size: 14px; font-weight: 500; color: var(--text-3); white-space: nowrap; }
+    .work-body p { color: var(--text-2); font-size: 16px; }
+    .work-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; font-size: 15px; font-weight: 500; color: var(--accent-ink); }
+    .work-card:hover .work-link { text-decoration: underline; text-underline-offset: 0.2em; }
     .work-link svg { width: 14px; height: 14px; }
 
-    /* ---------- Reveal ---------- */
-    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+    /* ---------- Contact ---------- */
+    .contact { padding: 96px 0 112px; }
+    .contact-box {
+      display: grid; grid-template-columns: 7fr 5fr; gap: 32px 64px; align-items: center;
+      padding: 48px; border-radius: 12px;
+      background: var(--bg-2); border: 1px solid var(--line-strong);
+    }
+    .contact-box p { color: var(--text-2); max-width: 48ch; margin-top: 14px; }
+    .contact-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .email {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--font-head); font-size: clamp(18px, 2.2vw, 24px); font-weight: 600; letter-spacing: -0.01em;
+      padding: 16px 22px; border-radius: 10px;
+      background: var(--accent); color: var(--on-accent); border: 1px solid var(--accent-deep);
+      transition: background .15s ease;
+    }
+    .email:hover { background: var(--accent-ink); }
+    .email svg { width: 22px; height: 22px; }
+    .contact-sub { font-size: 15px; color: var(--text-3); }
+
+    /* ---------- Footer ---------- */
+    footer { border-top: 1px solid var(--line); padding: 28px 0; }
+    .foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 14px; color: var(--text-3); }
 
     /* ---------- Responsive ---------- */
     @media (max-width: 960px) {
-      .cards { grid-template-columns: 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; gap: 32px 0; }
-      .step { padding: 8px 24px 8px 0; }
-      .step + .step { padding-left: 24px; }
-      .step:nth-child(3) { padding-left: 0; border-left: 0; }
-      .story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .hero-grid, .section-head, .story-grid, .contact-box { grid-template-columns: 1fr; }
+      .hero-grid { gap: 36px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .service { grid-template-columns: 1fr; gap: 10px; }
       .work-grid { grid-template-columns: 1fr; }
-      .work-head { flex-direction: column; gap: 6px; }
       .ask-list { grid-template-columns: 1fr 1fr; }
+      .contact-box { padding: 36px 28px; }
     }
     @media (max-width: 640px) {
+      body { font-size: 16px; }
       .nav-links { display: none; }
-      .h1-br { display: none; }
-      .hero { padding: 84px 0 72px; }
-      section { padding: 76px 0; }
-      .steps { grid-template-columns: 1fr; gap: 28px; }
-      .step, .step + .step { padding: 0; border-left: 0; }
-      .step { padding-left: 0; }
-      .contact-box { padding: 56px 22px; }
-      .ask-list { grid-template-columns: 1fr; }
+      .hero { padding: 64px 0 56px; }
+      h1 { max-width: 12ch; }
+      section { padding: 64px 0; }
+      .section-head { margin-bottom: 32px; }
+      .steps { grid-template-columns: 1fr; gap: 24px; }
+      .ask-list { grid-template-columns: 1fr; gap: 18px; }
       .hero-cta .btn { width: 100%; justify-content: center; }
-      .email { max-width: 100%; font-size: 16px; padding: 16px 18px; }
-      .strip-inner {
-        display: grid; grid-template-columns: max-content 1fr; justify-items: start;
-        gap: 12px 12px; padding: 18px 0; font-size: 11px; letter-spacing: 0.02em;
-      }
-      .strip-inner span { align-items: flex-start; line-height: 1.35; }
-      .strip-inner span::before { flex: 0 0 4px; margin-top: 6px; }
+      .contact-box { padding: 28px 22px; }
+      .email { width: 100%; justify-content: center; font-size: 17px; padding: 15px 18px; }
+      .strip-inner { font-size: 13px; }
+      .strip-inner span + span::before { margin: 0 10px; }
     }
   </style>
 </head>
 <body>
-
-  <div class="bg" aria-hidden="true">
-    <div class="grid"></div>
-    <div class="glow"></div>
-    <div class="glow-2"></div>
-  </div>
 
   <header>
     <div class="wrap nav">
@@ -358,9 +248,10 @@
         Melru Software
       </a>
       <nav class="nav-links" aria-label="Primary">
-        <a href="#services">Services</a>
+        <a href="#services">What we build</a>
         <a href="#process">How we work</a>
         <a href="#why">Why Melru</a>
+        <a href="#work">Our work</a>
       </nav>
       <a class="btn btn-primary" href="mailto:info@melrusoftware.com">
         Email us
@@ -373,21 +264,22 @@
 
     <!-- Hero -->
     <section class="hero">
-      <div class="wrap">
-        <div class="eyebrow"><span class="dot"></span> Taking new projects</div>
-        <h1>Software for the thing that<br class="h1-br"> <span class="accent">shouldn't be this hard.</span></h1>
-        <p class="lede">
-          Melru is a studio of two senior engineers. We build web apps, websites, internal tools, and AI products,
-          and you get custom software without the overhead of a big agency, from the people who will actually build it.
-        </p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
-            Tell us about your project
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn-ghost" href="#services">See what we build</a>
+      <div class="wrap hero-grid">
+        <h1>Software for the thing that <span class="accent">shouldn't be this hard.</span></h1>
+        <div class="hero-side">
+          <p class="lede">
+            Melru is a studio of two senior engineers. We build web apps, websites, internal tools, and AI products,
+            and you get custom software without the overhead of a big agency, from the people who will actually build it.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
+              Tell us about your project
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+            <a class="btn btn-ghost" href="#services">See what we build</a>
+          </div>
+          <p class="hero-note"><b>Taking new projects.</b> You'll hear back from one of us, usually the same day. No forms, no sales call required.</p>
         </div>
-        <p class="hero-note">You'll hear back from one of us, usually the same day. No forms, no sales call required.</p>
       </div>
     </section>
 
@@ -405,86 +297,68 @@
     <!-- Services -->
     <section id="services">
       <div class="wrap">
-        <div class="section-head reveal">
-          <div class="label">What we build</div>
+        <div class="section-head">
           <h2>What would you build if you had two engineers?</h2>
           <p>We use AI to build fast. We spent years building by hand, so we know when it's wrong.</p>
         </div>
-        <div class="cards">
-          <article class="card reveal">
-            <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8M12 18v3"/></svg></div>
-            <h3>Custom web apps &amp; internal tools</h3>
-            <p>The dashboard, portal, or admin tool your team keeps wishing existed. Built to fit how you already work.</p>
-            <ul>
-              <li>Replace spreadsheets and manual processes</li>
-              <li>Customer and staff portals</li>
-              <li>Reporting and admin dashboards</li>
-            </ul>
-          </article>
-          <article class="card reveal">
-            <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/><circle cx="12" cy="12" r="4"/></svg></div>
-            <h3>AI integration &amp; automation</h3>
-            <p>Add AI features to the software you already have, or automate the work that eats your week.</p>
-            <ul>
-              <li>Document and email processing</li>
-              <li>Chat and search over your own data</li>
-              <li>Workflow automation between your tools</li>
-            </ul>
-          </article>
-          <article class="card reveal">
-            <div class="icon"><svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.1 2.1 0 0 0-2.9-.1z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.9 12.9 0 0 1 22 2c0 2.7-.9 7.3-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.5-3 2-4 4-1 4-1M15 12v5s3-.5 4-2 1-4 1-4"/></svg></div>
+        <ul class="services">
+          <li class="service">
+            <h3>Custom web apps and internal tools</h3>
+            <div>
+              <p>The dashboard, portal, or admin tool your team keeps wishing existed. Built to fit how you already work.</p>
+              <p class="eg"><b>Things like</b> replacing spreadsheets and manual processes, customer and staff portals, reporting and admin dashboards.</p>
+            </div>
+          </li>
+          <li class="service">
+            <h3>AI integration and automation</h3>
+            <div>
+              <p>Add AI features to the software you already have, or automate the work that eats your week.</p>
+              <p class="eg"><b>Things like</b> document and email processing, chat and search over your own data, workflow automation between your tools.</p>
+            </div>
+          </li>
+          <li class="service">
             <h3>MVPs for founders</h3>
-            <p>Have an idea and need it in front of real users? We take it from a description to a launched product you can charge for.</p>
-              <ul>
-              <li>Scope to a version 1 that ships</li>
-              <li>Landing page, app, and payments</li>
-              <li>Built so you can keep iterating</li>
-            </ul>
-          </article>
-          <article class="card reveal">
-            <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+            <div>
+              <p>Have an idea and need it in front of real users? We take it from a description to a launched product you can charge for.</p>
+              <p class="eg"><b>Things like</b> scoping a version 1 that ships, the landing page, app, and payments, built so you can keep iterating.</p>
+            </div>
+          </li>
+          <li class="service">
             <h3>Websites for small businesses</h3>
-            <p>A site that looks like your business, loads fast, and is easy for you to update. Recent work includes a site for a slime shop.</p>
-            <ul>
-              <li>Design and build, start to finish</li>
-              <li>Shops, bookings, and contact forms</li>
-              <li>Hosting and domain set up for you</li>
-            </ul>
-          </article>
-        </div>
+            <div>
+              <p>A site that looks like your business, loads fast, and is easy for you to update. Recent work includes a site for a slime shop.</p>
+              <p class="eg"><b>Things like</b> design and build start to finish, shops, bookings, and contact forms, hosting and domain set up for you.</p>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 
     <!-- Process -->
     <section id="process" class="process">
       <div class="wrap">
-        <div class="section-head reveal">
-          <div class="label">How we work</div>
+        <div class="section-head">
           <h2>From first email to working software.</h2>
           <p>Short cycles, plain language, and something you can click on early.</p>
         </div>
-        <div class="steps">
-          <div class="step reveal">
-            <div class="num">01</div>
+        <ol class="steps">
+          <li class="step">
             <h3>Tell us the problem</h3>
             <p>Email us what's slow, manual, or missing. We'll ask a few questions and tell you whether software is the right fix.</p>
-          </div>
-          <div class="step reveal">
-            <div class="num">02</div>
+          </li>
+          <li class="step">
             <h3>Agree on a scope</h3>
             <p>You get a written scope, a timeline, and a price before anything is built. No surprises later.</p>
-          </div>
-          <div class="step reveal">
-            <div class="num">03</div>
+          </li>
+          <li class="step">
             <h3>See it early, often</h3>
             <p>You see a working version early, not at the end. You react, we adjust.</p>
-          </div>
-          <div class="step reveal">
-            <div class="num">04</div>
+          </li>
+          <li class="step">
             <h3>Launch and keep going</h3>
             <p>We deploy it, hand over everything, and stay available for the next round of improvements.</p>
-          </div>
-        </div>
+          </li>
+        </ol>
       </div>
     </section>
 
@@ -492,8 +366,7 @@
     <section id="why">
       <div class="wrap">
         <div class="story-grid">
-          <div class="story reveal">
-            <div class="label">Why Melru</div>
+          <div class="story">
             <h2>Two people who have a low tolerance for inefficiency.</h2>
             <p>
               Melru is a husband and wife team. We're both senior software engineers who spent years at large software companies,
@@ -510,36 +383,23 @@
               "Melru" is the name of our street. It's short, easy to say, and it's where we work.
             </p>
           </div>
-          <div class="reveal">
-            <div class="panel">
-              <div class="panel-inner" style="font-family: var(--font-body);">
-                <div class="panel-bar"><i></i><i></i><i></i></div>
-                <div class="team">
-                  <div class="person">
-                    <div class="avatar">BE</div>
-                    <div>
-                      <h4>The systems thinker</h4>
-                      <div class="role">Backend · Architecture · Data</div>
-                      <p>Thinks in systems and wants to understand exactly how things work, all the way down. Holds every detail in his head. Loves a spreadsheet.</p>
-                    </div>
-                  </div>
-                  <div class="person">
-                    <div class="avatar alt">FE</div>
-                    <div>
-                      <h4>The one who ships it</h4>
-                      <div class="role">Frontend · Product · Delivery</div>
-                      <p>Sets the vision and pushes it through to done. Has no patience for bad user experience. Thinks spreadsheets are an app waiting to be built.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="team-foot">You'll talk to the people building it. There's no one else.</div>
-              </div>
+          <div class="team">
+            <div class="person">
+              <h3>The systems thinker</h3>
+              <div class="role">Backend, architecture, data</div>
+              <p>Thinks in systems and wants to understand exactly how things work, all the way down. Holds every detail in his head. Loves a spreadsheet.</p>
             </div>
+            <div class="person">
+              <h3>The one who ships it</h3>
+              <div class="role">Frontend, product, delivery</div>
+              <p>Sets the vision and pushes it through to done. Has no patience for bad user experience. Thinks spreadsheets are an app waiting to be built.</p>
+            </div>
+            <p class="team-foot">You'll talk to the people building it. There's no one else.</p>
           </div>
         </div>
 
-        <div class="asks reveal">
-          <div class="asks-head">Things people have brought us</div>
+        <div class="asks">
+          <h3>Things people have brought us</h3>
           <ul class="ask-list">
             <li>This website we depend on is hard to use. Can you make a tool that makes it easier?</li>
             <li>We need a system to organize and visualize the data for a huge project with a lot of moving parts.</li>
@@ -555,25 +415,23 @@
     <!-- Work -->
     <section class="work" id="work">
       <div class="wrap">
-        <div class="work-head reveal">
-          <div class="label">Things we've built</div>
+        <div class="section-head">
+          <h2>Things we've built</h2>
           <p>Two very different problems, two very different answers.</p>
         </div>
         <div class="work-grid">
-          <a class="work-card reveal" href="https://spendenough.com" target="_blank" rel="noopener">
+          <a class="work-card" href="https://spendenough.com" target="_blank" rel="noopener">
             <div class="work-shot"><img src="assets/work/spend-enough.jpg" alt="The Spend Enough landing page: a headline asking whether you are spending enough, beside a chart of outcomes" loading="lazy"></div>
             <div class="work-body">
-              <div class="work-kind">Product</div>
-              <h3>Spend Enough</h3>
+              <h3>Spend Enough <small>Product</small></h3>
               <p>A tool for one question: are you spending enough for the life you want? Enter your numbers, change one decision, and see the range of where it leads. It started because one of us didn't want to keep looking at a spreadsheet.</p>
               <span class="work-link">spendenough.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
             </div>
           </a>
-          <a class="work-card reveal" href="https://theslimegirls.com" target="_blank" rel="noopener">
+          <a class="work-card" href="https://theslimegirls.com" target="_blank" rel="noopener">
             <div class="work-shot"><img src="assets/work/the-slime-girls.jpg" alt="The slime girls website: a pink hero reading scoop, sprinkle, squish, with a photo of the slime bar" loading="lazy"></div>
             <div class="work-body">
-              <div class="work-kind">Website</div>
-              <h3>the slime girls</h3>
+              <h3>the slime girls <small>Website</small></h3>
               <p>A mother and daughter slime studio in Long Beach. A site for booking parties, finding them at markets, and shopping the slimes.</p>
               <span class="work-link">theslimegirls.com <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
             </div>
@@ -585,15 +443,18 @@
     <!-- Contact -->
     <section class="contact" id="contact">
       <div class="wrap">
-        <div class="contact-box reveal">
-          <div class="label">Get in touch</div>
-          <h2>Have a problem software could fix?</h2>
-          <p>Describe the problem in a few sentences and we'll start imagining the fix with you.</p>
-          <a class="email" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
-            info@melrusoftware.com
-          </a>
-          <p class="contact-sub">You'll hear back from one of us, usually the same day.</p>
+        <div class="contact-box">
+          <div>
+            <h2>Have a problem software could fix?</h2>
+            <p>Describe the problem in a few sentences and we'll start imagining the fix with you.</p>
+          </div>
+          <div class="contact-side">
+            <a class="email" href="mailto:info@melrusoftware.com?subject=Project%20inquiry">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+              info@melrusoftware.com
+            </a>
+            <p class="contact-sub">You'll hear back from one of us, usually the same day.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -609,15 +470,6 @@
 
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
-    var els = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.12 });
-      els.forEach(function (el) { io.observe(el); });
-    } else {
-      els.forEach(function (el) { el.classList.add('in'); });
-    }
   </script>
 </body>
 </html>
